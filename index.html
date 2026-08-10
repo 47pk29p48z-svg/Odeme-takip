@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ödeme Takip Defteri</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ödeme Takip">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14161A">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAKPklEQVR4nO3dfXAUdx3H8b29h1xyl8sl5Ik8BxKCCRBQHqaUUBlaW5lSplJlpA8q2qJQ+4DWjmPVjk7HsZVWrIzUUrXD04hYBrCMtkUlhbZQ0AlpSEgCJCEJJLmQu1ySe9h78I84yAhfyPeyv73L8nn929sHru/s3u7+dtdwaVuNBHA9crxXABIX4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gAS4gCSKd4rcCMBJdLc7WvqHO7sD/QMBHvcwYGhkF+JBJRIQIkYjQarWU4yy3arMcdpyXFactMt0/JSphekZDrM8V53PUjEOM50jbzf4D7S6Gnp9oUjUepjkVBUCYW9vrBrUGnr9V/9n7LSzPPLHTVVzgXTHMmW8W4df/7njr0f9Y1zJhoozrL+8XtVKs4wgeLwjIT2H3ft/dDVfTkwzln1eZS3T/S/faLfYpLvrE5/4PasykKbKit5S0mIONzDoa3vdO8/3h8MRdSdczAUOXiy/+DJ/pnFtnXL8udMSVV3/voW5zhC4ejO2p43/35p2B8WuqD69uFv/aa5psr51PKC/ElJQpelG/GM44Ir8KMd5xo7RzRb4vsN7hOtgxtWFC6fl6nZQieuuB3Kvlc38Mgrp7UsY5QvEHlhd/tz28+pvgvTn/hsOXbV9vzqL51R8kBEuPfqBvoGlV98rSw12Ri3lUh4cdhybPlr96YD8SxjVN35obWbz3hGQnFejwSmdRy7j/T+4dBFjRdKOdfj++7vWgMK9i/Xp2kc//zE/cv9F7Rc4k3Vtw//cMf5uG/GEpN2vzl63MEXdrfRJzxvoijLuqgybXapvTjbOinVnGKRg+HokC98weVv6hw51jx4vMUbiWnutQ3u3Ud6V9Vkx7hm+qVRHJGo9PyuNq8vlpMZM4tta+/Jn1v2/+evrLLBapYzHeY5U1K/vDinz6PsrO3Zc7RXCbMT2Xywa25Z6tTJyTGsno4ZLm2r0WAx+465frannTuVxSQ/ubxg5cKssU/S1uv/wfZzZy/6uMuaVWL/7foK7lQ39a+z3nVbmsf++dV35Dxxb4HqqxEbLX5z+IKR19/p5k5lsxp/vbacVYYkSSXZ1je+PX1euYO7uFNtQ/+oH+BOpW9axLGrtsc1qLAmMRsNL68pm1Vij2FxVrO8cc3UGcXsK22bD3bF/JNIl4THoYSjez5gX+9+ekVhdWksZYyymOQXvzLVaeP9oup0BY6cdse8UP0RHsehuoHLXt5mY25Z6hdu4+1NrpWRan7m/iLuVH862jvO5eqJ8Dj2HeNtNgwG6cnlhaoseml1+kzmzuXjFm9X/3hHk+iG2Djcw6G680OsSRZXOcvzVDuk/PpdedxJahvcai19ohMbx9FGD/cn3vh3KFdbMM3BHb1R2+BRcQUmNLFxfNDE+6LT7aYYjkJvwGCQ7p6TwZrkVNuQL4CrLZIkOo7THcOszy/6lFM2qLwOi6ucrM+HI9GmLq1HmSQmgXF4RkIXB4KsST5zzTny8avIT7FbeYM2Gi/wmtYrgXGc4Y/y4h5cjIXBIFUW8WZ7BlsOSZKExtHFvMMgySznZQgZ+js1l3f4M/57I/RBYBw9bt4+pSAzyaD2D45RRVm85nrcvLN2eiU0Dt5XnJ1mEbQmWcw5u7zKDe60u3UIjGOQOTwzwy5qcAl3zpFIdEjwfTQTgsA4/EHe2QK7sIHg3KMVSZIwsFQSGkeAeWOI2SjmF4ckWUzsfya3bF0SGEcwxNttm4TFEcOcFebK65LAOCwm3v+SEH/sp7g5m5krr0sC40hibsxjGBgsbs7WcT/VQwdExmHmzXwoprHpY+H1sW9r4668Lgn8ChwpvGOEgSFRdyZy5ywbYjnA0R+BceQ4eaeeej28M6pj1+fhnY6b5DAbVb86PAElUBydroCg2xLb+/w3/9BVcplrrlcC4+BeRfMrEUFXvM5d4t3jNFnM9b8JR2Ac0wtSuJN80q7+QIpoVGpgjjmqyGevuS4JjMNpM+Wm87bPJ896VV+N5u4R7oWSykLEIUmihwlWMR/weKTRo/rPDu5oclk2YMsxSmwct01PY33+slf5uGVQxRWIRqW//fsya5LqEltKEo5jJUl0HIsq07iHhG99qOazgo+3DHa6eD9yuQOSdUxsHE6biXsz9OEGd0s3+wEKlK3vsh8xhTiuEH6SeMUC3hM/o1Fp0wF1Hg11qG6gvo13v93cslQ8wvYK4XHcOTsjnTkQ60Srd/w7l8te5aW9Hdypvng7Hv70P8LjMBsNKxeyv/FX9l04xfyjv5oSij775ln3MO+SSv6kpJpK3i9ofdPi2uODi3MmpfJegKKEoxveaI2tD78S+c7vW+v559PWLcuXcUnlKlrEkZwkP/o59t3uQ/7w46+1cPcv7b3+b7zadLyZfTw8s9i2dFY6dyp902jUwn0LMmfzn9QTDEVefKvj0c1nxnLm1DWobDrQ+dDLp1v5T4szmwzPrizmTqV7Gj1qUjZIz68ufWjj6RiG/Ne3Da3f0lyUZa2pTJtdai/JSc6wm5ItshKOen3hzv7Af59D2jwY880m65cVlOE5k9fQ7iG1uU7Lc18q+f62s7GdIO/o8+847N9xuEft9ZJqqpyrFuEg5To0HQz32ZnOp1R6pJNaZhTbfvpgqaDbMCc6rUdKrqrJ/urSyRovlDIlJ3njmjIrhosS4vC9fPOevCfuLYj7H+usEvtr6yvSUhLiLXeJKT5/NKvvyPnJ6tI4/skurU5/9bFyvInnxuL2d3PX7IyK/JQf7zyv8Zu8ki3y0ysK75uPd7zdXDx3t0VZ1tcfn75uWb5Nq/sAFlWmbd9QiTLGKM57XJPR8MiS3OXzMre+231AwHtlr5hRbFv3+fxPT8V7ZRkS4udYut30zP1Fj92dt/+Ya+9HKryR+gqLSV5anf7Awqwq5mPBQEqQOEalpZgeXpL78JLcps6R2gb30UZPy0VfbC9fynSY55c7Flc5F1So8C77W5ZGL+OJTUCJNHeNNHWNdPQFej3BSwNB93DIH4wElEgwFDHKBqtFTjLLNqsxO82S67RMzrCUTU6uLLRlOngXgeG6EjoOiC9scoGEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOID0H1ZiBYDEzyOAAAAAAElFTkSuQmCC">
+<link rel="icon" href="data:image/png;base64,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hTiuEH6SeMUC3hM/o1Fp0wF1Hg11qG6gvo13v93cslQ8wvYK4XHcOTsjnTkQ60Srd/w7l8te5aW9Hdypvng7Hv70P8LjMBsNKxeyv/FX9l04xfyjv5oSij775ln3MO+SSv6kpJpK3i9ofdPi2uODi3MmpfJegKKEoxveaI2tD78S+c7vW+v559PWLcuXcUnlKlrEkZwkP/o59t3uQ/7w46+1cPcv7b3+b7zadLyZfTw8s9i2dFY6dyp902jUwn0LMmfzn9QTDEVefKvj0c1nxnLm1DWobDrQ+dDLp1v5T4szmwzPrizmTqV7Gj1qUjZIz68ufWjj6RiG/Ne3Da3f0lyUZa2pTJtdai/JSc6wm5ItshKOen3hzv7Af59D2jwY880m65cVlOE5k9fQ7iG1uU7Lc18q+f62s7GdIO/o8+847N9xuEft9ZJqqpyrFuEg5To0HQz32ZnOp1R6pJNaZhTbfvpgqaDbMCc6rUdKrqrJ/urSyRovlDIlJ3njmjIrhosS4vC9fPOevCfuLYj7H+usEvtr6yvSUhLiLXeJKT5/NKvvyPnJ6tI4/skurU5/9bFyvInnxuL2d3PX7IyK/JQf7zyv8Zu8ki3y0ysK75uPd7zdXDx3t0VZ1tcfn75uWb5Nq/sAFlWmbd9QiTLGKM57XJPR8MiS3OXzMre+231AwHtlr5hRbFv3+fxPT8V7ZRkS4udYut30zP1Fj92dt/+Ya+9HKryR+gqLSV5anf7Awqwq5mPBQEqQOEalpZgeXpL78JLcps6R2gb30UZPy0VfbC9fynSY55c7Flc5F1So8C77W5ZGL+OJTUCJNHeNNHWNdPQFej3BSwNB93DIH4wElEgwFDHKBqtFTjLLNqsxO82S67RMzrCUTU6uLLRlOngXgeG6EjoOiC9scoGEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOID0H1ZiBYDEzyOAAAAAAElFTkSuQmCC">
+<style>
+  :root{
+    --bg:#14161A; --surface:#1E2126; --surface2:#262A31; --line:#33383F;
+    --text:#EDEEF0; --muted:#8B909B;
+    --paper:#F7F3E8; --paper-line:#D9D2BE; --paper-text:#2B2822; --paper-muted:#7A7566;
+    --green:#2FAE66; --amber:#E8A33D; --red:#E1503D;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+  .app{max-width:1120px; margin:0 auto; padding:18px 14px 70px;}
+  header.top{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px;}
+  header.top h1{font-size:19px; margin:0;}
+  header.top .eyebrow{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px;}
+
+  .warnbanner{background:rgba(232,163,61,0.12); border:1px solid rgba(232,163,61,0.4); color:var(--amber); border-radius:8px; padding:10px 12px; font-size:12px; margin-bottom:14px; display:none;}
+  .warnbanner.show{display:block;}
+
+  .grid-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:16px;}
+  .stat{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .stat .label{font-family:var(--mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;}
+  .stat .value{font-family:var(--mono); font-size:22px; font-weight:600;}
+  .stat .value.green{color:var(--green);} .stat .value.red{color:var(--red);}
+  .stat .substat{font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:4px;}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px;}
+  .panel-head{display:flex; justify-content:space-between; align-items:center; cursor:pointer;}
+  .panel h2{font-size:13px; margin:0; font-weight:700;}
+  .panel h2 .count{color:var(--muted); font-weight:400; font-family:var(--mono); font-size:11px;}
+  .month-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px dashed var(--line); cursor:pointer; font-size:13px;}
+  .month-row:last-child{border-bottom:none;}
+  .month-label{font-weight:600; flex:1;}
+  .month-meta{color:var(--muted); font-size:11px; font-family:var(--mono);}
+  .month-total{font-weight:700;}
+
+  .toolbar{display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; align-items:center;}
+  .toolbar input[type=text]{flex:1; min-width:160px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
+  .toolbar input::placeholder{color:var(--muted);}
+  button.primary{background:var(--amber); color:#20180a; border:none; border-radius:8px; padding:10px 16px; font-weight:700; font-size:13px; cursor:pointer; font-family:var(--sans); white-space:nowrap;}
+  button.secondary{background:var(--surface2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:9px 13px; font-weight:600; font-size:12px; cursor:pointer; font-family:var(--sans);}
+  button.paidbtn{background:var(--green); color:#0e2417; border:none; border-radius:7px; padding:9px 14px; font-weight:700; font-size:12px; cursor:pointer; font-family:var(--sans); white-space:nowrap;}
+  button.editbtn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:6px; padding:6px 10px; font-size:11px; cursor:pointer; font-family:var(--sans);}
+  button.linklike{background:none; border:none; color:var(--muted); font-size:12px; cursor:pointer; text-decoration:underline; padding:0;}
+  button.del{background:none; border:none; color:var(--red); font-size:11px; cursor:pointer; font-weight:700;}
+  .backup-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .backup-row button{font-size:11px; padding:7px 11px;}
+
+  .tablewrap{background:var(--surface); border:1px solid var(--line); border-radius:12px; overflow-x:auto;}
+  table{width:100%; border-collapse:collapse; min-width:820px;}
+  thead th{
+    position:sticky; top:0; background:var(--surface2); text-align:left; font-family:var(--mono); font-size:10px;
+    text-transform:uppercase; letter-spacing:1px; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap;
+  }
+  tbody td{padding:10px 12px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(255,255,255,0.02);}
+  .sname{font-weight:700;}
+  .badge{font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:20px; font-weight:600; white-space:nowrap; display:inline-block;}
+  .badge.paid{background:rgba(47,174,102,0.15); color:var(--green);}
+  .badge.unpaid{background:rgba(225,80,61,0.15); color:var(--red);}
+  .badge.never{background:rgba(139,144,155,0.15); color:var(--muted);}
+  .mono{font-family:var(--mono);}
+  .ibare{font-size:11px; color:var(--muted); margin-top:4px; font-family:var(--mono);}
+  .hist-toggle{color:var(--muted); font-size:11px; cursor:pointer; text-decoration:underline;}
+  .actioncell{display:flex; gap:6px; flex-wrap:wrap;}
+
+  .histbox{background:var(--paper); color:var(--paper-text); border-radius:6px; padding:10px 12px; margin:6px 0 4px; border:1px solid var(--paper-line);}
+  .histbox .hrow{display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; padding:5px 0; border-bottom:1px dashed var(--paper-line); gap:10px; align-items:center;}
+  .histbox .hrow:last-child{border-bottom:none;}
+  .histbox .empty{font-size:12px; color:var(--paper-muted); font-style:italic;}
+
+  .overlay{position:fixed; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:50; padding:16px;}
+  .modal{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px; width:100%; max-width:420px;}
+  .modal h3{margin:0 0 14px; font-size:16px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12px; color:var(--muted); margin-bottom:5px; font-family:var(--mono); text-transform:uppercase; letter-spacing:0.5px;}
+  .field input{width:100%; padding:10px 11px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
+  .modal-actions{display:flex; gap:8px; margin-top:16px;}
+  .modal-actions button{flex:1;}
+  footer.note{text-align:center; color:var(--muted); font-size:11px; margin-top:24px; font-family:var(--mono);}
+  @media(max-width:600px){ .grid-stats{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<input type="file" id="importFile" accept="application/json" style="display:none" onchange="handleImportFile(event)">
+<script>
+/* ---------- storage: browser localStorage, tied to this device/browser ---------- */
+const STORAGE_OK = (function(){
+  try{
+    const t='__test__'; localStorage.setItem(t,'1'); localStorage.removeItem(t); return true;
+  }catch(e){ return false; }
+})();
+
+function getList(key){
+  if(!STORAGE_OK) return (window.__mem && window.__mem[key]) || [];
+  try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : []; }
+  catch(e){ console.error('okuma hatası', e); return []; }
+}
+function saveList(key, list){
+  if(!STORAGE_OK){ window.__mem = window.__mem||{}; window.__mem[key]=list; return true; }
+  try{ localStorage.setItem(key, JSON.stringify(list)); return true; }
+  catch(e){ console.error('yazma hatası', e); return false; }
+}
+
+let students = [];
+let payments = [];
+let ready = false;
+let expanded = {};
+let searchQ = '';
+let allHistoryOpen = false;
+let monthOpen = {};
+let addModalOpen = false;
+let editingStudentId = null;
+let editingPaymentId = null;
+let confirmState = null; // {message, action}
+let alertState = null; // string
+
+function loadAll(){
+  students = getList('coach_students_v3');
+  payments = getList('coach_payments_v3');
+  ready = true;
+  render();
+}
+
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function fmtDate(d){ if(!d) return '—'; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function fmtMoney(n){ return (n||0).toLocaleString('tr-TR')+' TL'; }
+function isThisMonth(d){ if(!d) return false; const now=new Date(); const dt=new Date(d+'T00:00:00'); return dt.getFullYear()===now.getFullYear() && dt.getMonth()===now.getMonth(); }
+
+function studentPayments(sid){
+  return payments.filter(p=>p.studentId===sid).sort((a,b)=> b.date.localeCompare(a.date) || (b.createdAt||'').localeCompare(a.createdAt||''));
+}
+function studentTotal(sid){ return payments.filter(p=>p.studentId===sid).reduce((s,p)=>s+Number(p.amount||0),0); }
+
+function monthKey(d){ return d.slice(0,7); }
+function monthLabel(key){
+  const [y,m] = key.split('-').map(Number);
+  const dt = new Date(y, m-1, 1);
+  return dt.toLocaleDateString('tr-TR', {month:'long', year:'numeric'});
+}
+function monthlyBreakdown(){
+  const map = {};
+  payments.forEach(p=>{
+    const key = monthKey(p.date);
+    if(!map[key]) map[key] = {total:0, items:[]};
+    map[key].total += Number(p.amount||0);
+    map[key].items.push(p);
+  });
+  return Object.keys(map).sort().reverse().map(key=>({
+    key,
+    label: monthLabel(key),
+    total: map[key].total,
+    items: map[key].items.slice().sort((a,b)=> b.date.localeCompare(a.date))
+  }));
+}
+
+function globalStats(){
+  const totalAll = payments.reduce((s,p)=>s+Number(p.amount||0),0);
+  const totalMonth = payments.filter(p=>isThisMonth(p.date)).reduce((s,p)=>s+Number(p.amount||0),0);
+  const paidThisMonth = students.filter(s=> studentPayments(s.id).some(p=>isThisMonth(p.date))).length;
+  const unpaidThisMonth = students.length - paidThisMonth;
+  const monthsEarnedCount = new Set(payments.map(p=>monthKey(p.date))).size;
+  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount};
+}
+
+function render(){
+  const app = document.getElementById('app');
+  if(!ready){ app.innerHTML='<p style="color:var(--muted);padding:40px;text-align:center;">Yükleniyor…</p>'; return; }
+  const g = globalStats();
+  let h = `
+  <header class="top">
+    <div><div class="eyebrow">Kişisel Koçluk</div><h1>Ödeme Takip Defteri</h1></div>
+  </header>
+  <div class="warnbanner ${STORAGE_OK?'':'show'}">Bu tarayıcıda kalıcı depolama kullanılamıyor (gizli/özel sekme olabilir). Veriler yalnızca bu oturum boyunca tutulacak — sayfayı kapatmadan önce mutlaka "Yedekle" ile dışa aktarın.</div>
+  <div class="grid-stats">
+    <div class="stat"><div class="label">Toplam Öğrenci</div><div class="value">${students.length}</div></div>
+    <div class="stat"><div class="label">Bu Ay Ödeyen</div><div class="value green">${g.paidThisMonth}</div></div>
+    <div class="stat"><div class="label">Bu Ay Ödemeyen</div><div class="value ${g.unpaidThisMonth>0?'red':''}">${g.unpaidThisMonth}</div></div>
+    <div class="stat"><div class="label">Bu Ay Tahsilat</div><div class="value">${fmtMoney(g.totalMonth)}</div></div>
+    <div class="stat"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.totalAll)}</div><div class="substat">${g.monthsEarnedCount} ayda kazanıldı</div></div>
+  </div>
+  <div class="toolbar">
+    <input type="text" placeholder="Öğrenci ara…" value="${searchQ}" oninput="onSearch(this.value)">
+    <button class="primary" onclick="openAddModal()">+ Kişi Ekle</button>
+  </div>
+  <div class="backup-row">
+    <button class="secondary" onclick="exportBackup()">⭳ Yedekle (dosyaya kaydet)</button>
+    <button class="secondary" onclick="document.getElementById('importFile').click()">⭱ Yedekten Geri Yükle</button>
+    <button class="secondary" onclick="openTextBackupModal()">📋 Yedeği Metin Olarak Göster / Kopyala</button>
+    <button class="secondary" onclick="openTextImportModal()">📥 Metinden İçe Aktar</button>
+  </div>
+  <section class="panel">
+    <div class="panel-head" onclick="toggleAllHistory()">
+      <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length} kayıt)</span></h2>
+      <span class="hist-toggle">${allHistoryOpen? 'gizle' : 'göster'}</span>
+    </div>
+    ${allHistoryOpen ? renderMonthlyBreakdown() : ''}
+  </section>
+  <div class="tablewrap"><table>
+    <thead><tr>
+      <th>Öğrenci</th><th>Ders Ücreti</th><th>Durum</th><th>Son Ödeme</th><th>İşlemler</th><th></th>
+    </tr></thead>
+    <tbody>`;
+
+  const q = searchQ.trim().toLowerCase();
+  const list = students.filter(s=>s.name.toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+  if(list.length===0){
+    h += `<tr><td colspan="6" style="color:var(--muted); text-align:center; padding:24px;">Öğrenci yok. "+ Kişi Ekle" ile ekleyin.</td></tr>`;
+  }
+  list.forEach(s=>{
+    const hist = studentPayments(s.id);
+    const last = hist[0];
+    const paidNow = last && isThisMonth(last.date);
+    let badge = `<span class="badge never">Hiç ödeme yok</span>`;
+    if(last){ badge = paidNow? `<span class="badge paid">Bu ay ödedi</span>` : `<span class="badge unpaid">Bu ay ödemedi</span>`; }
+    h += `<tr>
+      <td class="sname">${s.name}<div><button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button></div></td>
+      <td class="mono">${fmtMoney(s.price)}</td>
+      <td>${badge}</td>
+      <td class="mono">
+        ${last? fmtDate(last.date)+' · '+fmtMoney(last.amount) : '—'}
+        ${last? `<div class="ibare">${s.name}, ${fmtDate(last.date)} tarihinde ${fmtMoney(last.amount)} ödedi.</div>` : ''}
+      </td>
+      <td>
+        <div class="actioncell">
+          <button class="paidbtn" onclick="markPaidToday('${s.id}')">✓ Ücret Ödendi</button>
+          <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
+        </div>
+      </td>
+      <td><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'gizle' : 'geçmiş ('+hist.length+')'}</span></td>
+    </tr>`;
+    if(expanded[s.id]){
+      h += `<tr><td colspan="6" style="border-bottom:1px solid var(--line);"><div class="histbox">`;
+      if(hist.length===0){ h += `<div class="empty">Henüz ödeme kaydı yok.</div>`; }
+      else{
+        hist.forEach(p=>{
+          h += `<div class="hrow"><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span><span style="display:flex;gap:8px;"><button class="linklike" onclick="openEditPaymentModal('${p.id}')">düzenle</button><button class="del" onclick="deletePayment('${p.id}')">sil</button></span></div>`;
+        });
+      }
+      h += `</div></td></tr>`;
+    }
+  });
+
+  h += `</tbody></table></div>
+  <footer class="note">"Ücret Ödendi" butonuna bastığında bugünün tarihi ve o öğrenci için tanımlı ücret otomatik kaydedilir. Fiyat sonradan değişse bile geçmiş ödemeler o günkü tutarıyla kalır. Veriler bu cihaz/tarayıcıda saklanır — düzenli olarak "Yedekle" ile dosyaya kaydetmeniz önerilir.</footer>`;
+
+  app.innerHTML = h;
+  if(addModalOpen) renderAddModal();
+  if(editingStudentId) renderEditModal();
+  if(editingPaymentId) renderEditPaymentModal();
+  if(textBackupOpen) renderTextBackupModal();
+  if(textImportOpen) renderTextImportModal();
+  if(confirmState) renderConfirmModal();
+  if(alertState) renderAlertModal();
+}
+
+function onSearch(v){ searchQ=v; render(); const el=document.querySelector('.toolbar input'); if(el){ el.focus(); el.setSelectionRange(v.length,v.length);} }
+function toggleHist(sid){ expanded[sid] = !expanded[sid]; render(); }
+function toggleAllHistory(){ allHistoryOpen = !allHistoryOpen; render(); }
+function toggleMonth(key){ monthOpen[key] = !monthOpen[key]; render(); }
+function renderMonthlyBreakdown(){
+  const months = monthlyBreakdown();
+  if(months.length===0){ return `<div class="empty">Henüz kayıtlı ödeme yok.</div>`; }
+  let out = '';
+  months.forEach(mo=>{
+    out += `<div class="month-row" onclick="toggleMonth('${mo.key}')">
+      <span class="month-label">${mo.label}</span>
+      <span class="month-meta">${mo.items.length} ödeme</span>
+      <span class="month-total mono">${fmtMoney(mo.total)}</span>
+    </div>`;
+    if(monthOpen[mo.key]){
+      out += `<div class="histbox" style="margin-left:0;">`;
+      mo.items.forEach(p=>{
+        out += `<div class="hrow"><span>${memberNameOf(p.studentId)}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
+      });
+      out += `</div>`;
+    }
+  });
+  return out;
+}
+function memberNameOf(sid){ const s = students.find(x=>x.id===sid); return s ? s.name : '(silinmiş öğrenci)'; }
+
+function markPaidToday(sid){
+  const s = students.find(x=>x.id===sid);
+  if(!s) return;
+  payments.push({id:uid(), studentId:sid, amount:s.price, date:todayStr(), createdAt:new Date().toISOString()});
+  saveList('coach_payments_v3', payments);
+  render();
+}
+function deletePayment(pid){
+  askConfirm('Bu ödeme kaydı silinecek.', ()=>{
+    payments = payments.filter(p=>p.id!==pid);
+    saveList('coach_payments_v3', payments);
+    render();
+  });
+}
+function deleteStudent(sid){
+  askConfirm('Bu öğrenci ve tüm ödeme kayıtları silinecek.', ()=>{
+    students = students.filter(s=>s.id!==sid);
+    payments = payments.filter(p=>p.studentId!==sid);
+    saveList('coach_students_v3', students);
+    saveList('coach_payments_v3', payments);
+    render();
+  });
+}
+
+function askConfirm(message, action){ confirmState = {message, action}; render(); }
+function cancelConfirm(){ confirmState = null; const ov=document.getElementById('confirmOverlay'); if(ov) ov.remove(); }
+function confirmYes(){
+  const act = confirmState && confirmState.action;
+  confirmState = null;
+  const ov=document.getElementById('confirmOverlay'); if(ov) ov.remove();
+  if(act) act();
+}
+function renderConfirmModal(){
+  const existing = document.getElementById('confirmOverlay'); if(existing) existing.remove();
+  if(!confirmState) return;
+  const div = document.createElement('div'); div.id='confirmOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) cancelConfirm(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Emin misiniz?</h3>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 4px;">${confirmState.message}</p>
+    <div class="modal-actions">
+      <button class="secondary" onclick="cancelConfirm()">Vazgeç</button>
+      <button class="primary" style="background:var(--red);color:#fff;" onclick="confirmYes()">Evet, Sil</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function showAlert(msg){ alertState = msg; render(); }
+function closeAlert(){ alertState = null; const ov=document.getElementById('alertOverlay'); if(ov) ov.remove(); }
+function renderAlertModal(){
+  const existing = document.getElementById('alertOverlay'); if(existing) existing.remove();
+  if(!alertState) return;
+  const div = document.createElement('div'); div.id='alertOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeAlert(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <p style="font-size:13px;margin:0 0 14px;">${alertState}</p>
+    <div class="modal-actions"><button class="primary" onclick="closeAlert()">Tamam</button></div>
+  </div>`;
+  document.body.appendChild(div);
+}
+
+function openAddModal(){ addModalOpen=true; render(); }
+function closeAddModal(){ addModalOpen=false; const ov=document.getElementById('addOverlay'); if(ov) ov.remove(); }
+function renderAddModal(){
+  const existing = document.getElementById('addOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='addOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeAddModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Kişi Ekle</h3>
+    <div class="field"><label>Ad Soyad</label><input type="text" id="f_sname" placeholder="Örn: Ahmet Yılmaz"></div>
+    <div class="field"><label>Ders Ücreti (TL)</label><input type="number" min="0" id="f_sprice" placeholder="Örn: 1500" onkeydown="if(event.key==='Enter'){submitStudent()}"></div>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeAddModal()">Vazgeç</button>
+      <button class="primary" onclick="submitStudent()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+  setTimeout(()=>document.getElementById('f_sname').focus(), 50);
+}
+function submitStudent(){
+  const name = document.getElementById('f_sname').value.trim();
+  const price = Number(document.getElementById('f_sprice').value||0);
+  if(!name){ showAlert('Ad Soyad girin.'); return; }
+  if(!price || price<=0){ showAlert('Ders ücreti girin.'); return; }
+  students.push({id:uid(), name, price});
+  saveList('coach_students_v3', students);
+  closeAddModal();
+  render();
+}
+
+function openEditModal(sid){ editingStudentId = sid; render(); }
+function closeEditModal(){ editingStudentId = null; const ov=document.getElementById('editOverlay'); if(ov) ov.remove(); }
+function renderEditModal(){
+  const s = students.find(x=>x.id===editingStudentId);
+  if(!s){ editingStudentId=null; return; }
+  const existing = document.getElementById('editOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='editOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeEditModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Öğrenciyi Düzenle</h3>
+    <div class="field"><label>Ad Soyad</label><input type="text" id="e_sname" value="${s.name}"></div>
+    <div class="field"><label>Ders Ücreti (TL)</label><input type="number" min="0" id="e_sprice" value="${s.price}" onkeydown="if(event.key==='Enter'){submitEditStudent()}"></div>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeEditModal()">Vazgeç</button>
+      <button class="primary" onclick="submitEditStudent()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitEditStudent(){
+  const s = students.find(x=>x.id===editingStudentId);
+  if(!s) return;
+  const name = document.getElementById('e_sname').value.trim();
+  const price = Number(document.getElementById('e_sprice').value||0);
+  if(!name){ showAlert('Ad Soyad girin.'); return; }
+  if(!price || price<=0){ showAlert('Ders ücreti girin.'); return; }
+  s.name = name; s.price = price;
+  saveList('coach_students_v3', students);
+  closeEditModal();
+  render();
+}
+
+function openEditPaymentModal(pid){ editingPaymentId = pid; render(); }
+function closeEditPaymentModal(){ editingPaymentId = null; const ov=document.getElementById('editPayOverlay'); if(ov) ov.remove(); }
+function renderEditPaymentModal(){
+  const p = payments.find(x=>x.id===editingPaymentId);
+  if(!p){ editingPaymentId=null; return; }
+  const s = students.find(x=>x.id===p.studentId);
+  const existing = document.getElementById('editPayOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='editPayOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeEditPaymentModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Ödemeyi Düzenle${s? ' — '+s.name : ''}</h3>
+    <div class="field"><label>Ödeme Tarihi</label><input type="date" id="ep_date" value="${p.date}"></div>
+    <div class="field"><label>Tutar (TL)</label><input type="number" min="0" id="ep_amount" value="${p.amount}" onkeydown="if(event.key==='Enter'){submitEditPayment()}"></div>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeEditPaymentModal()">Vazgeç</button>
+      <button class="primary" onclick="submitEditPayment()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitEditPayment(){
+  const p = payments.find(x=>x.id===editingPaymentId);
+  if(!p) return;
+  const date = document.getElementById('ep_date').value;
+  const amount = Number(document.getElementById('ep_amount').value||0);
+  if(!date){ showAlert('Tarih girin.'); return; }
+  if(!amount || amount<=0){ showAlert('Geçerli bir tutar girin.'); return; }
+  p.date = date; p.amount = amount;
+  saveList('coach_payments_v3', payments);
+  closeEditPaymentModal();
+  render();
+}
+
+/* ---------- backup / restore ---------- */
+function exportBackup(){
+  try{
+    const data = {students, payments, exportedAt:new Date().toISOString()};
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'odeme-takip-yedek-'+todayStr()+'.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){
+    console.error('indirme hatası', e);
+    showAlert('Dosya indirme bu ekranda çalışmadı. Bunun yerine "Yedeği Metin Olarak Göster / Kopyala" butonunu kullanabilirsiniz.');
+    openTextBackupModal();
+  }
+}
+let textBackupOpen = false;
+let textImportOpen = false;
+function openTextBackupModal(){ textBackupOpen = true; render(); }
+function closeTextBackupModal(){ textBackupOpen = false; const ov=document.getElementById('textBackupOverlay'); if(ov) ov.remove(); }
+function renderTextBackupModal(){
+  const existing = document.getElementById('textBackupOverlay'); if(existing) existing.remove();
+  const data = {students, payments, exportedAt:new Date().toISOString()};
+  const json = JSON.stringify(data);
+  const div = document.createElement('div'); div.id='textBackupOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeTextBackupModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Yedek Metni</h3>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Aşağıdaki metnin tamamını kopyalayıp Notlar veya benzeri bir uygulamaya kaydedin. Geri yüklemek için "Metinden İçe Aktar" bölümüne yapıştırın.</p>
+    <textarea id="backupTextArea" readonly style="width:100%; height:160px; font-family:var(--mono); font-size:11px; padding:10px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text);">${json}</textarea>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeTextBackupModal()">Kapat</button>
+      <button class="primary" onclick="copyBackupText()">Kopyala</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function copyBackupText(){
+  const ta = document.getElementById('backupTextArea');
+  ta.focus(); ta.select();
+  let copied = false;
+  try{ copied = document.execCommand('copy'); }catch(e){}
+  if(!copied && navigator.clipboard){
+    navigator.clipboard.writeText(ta.value).then(()=>showAlert('Kopyalandı.')).catch(()=>showAlert('Kopyalanamadı, metni elle seçip kopyalayın.'));
+    return;
+  }
+  showAlert(copied ? 'Kopyalandı.' : 'Kopyalanamadı, metni elle seçip kopyalayın.');
+}
+function openTextImportModal(){ textImportOpen = true; render(); }
+function closeTextImportModal(){ textImportOpen = false; const ov=document.getElementById('textImportOverlay'); if(ov) ov.remove(); }
+function renderTextImportModal(){
+  const existing = document.getElementById('textImportOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='textImportOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeTextImportModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Metinden İçe Aktar</h3>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Kaydettiğiniz yedek metnini aşağıya yapıştırın.</p>
+    <textarea id="importTextArea" placeholder='{"students":[...],"payments":[...]}' style="width:100%; height:160px; font-family:var(--mono); font-size:11px; padding:10px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text);"></textarea>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeTextImportModal()">Vazgeç</button>
+      <button class="primary" onclick="submitTextImport()">İçe Aktar</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitTextImport(){
+  const raw = document.getElementById('importTextArea').value.trim();
+  try{
+    const data = JSON.parse(raw);
+    if(!Array.isArray(data.students) || !Array.isArray(data.payments)) throw new Error('geçersiz format');
+    closeTextImportModal();
+    askConfirm('Mevcut liste, yapıştırılan yedekle değiştirilecek.', ()=>{
+      students = data.students; payments = data.payments;
+      saveList('coach_students_v3', students);
+      saveList('coach_payments_v3', payments);
+      render();
+    });
+  }catch(err){
+    showAlert('Yapıştırılan metin okunamadı. Doğru bir yedek metni olduğundan emin olun.');
+  }
+}
+function handleImportFile(evt){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!Array.isArray(data.students) || !Array.isArray(data.payments)) throw new Error('geçersiz format');
+      askConfirm('Mevcut liste, yedekteki verilerle değiştirilecek.', ()=>{
+        students = data.students; payments = data.payments;
+        saveList('coach_students_v3', students);
+        saveList('coach_payments_v3', payments);
+        render();
+      });
+    }catch(err){
+      showAlert('Yedek dosyası okunamadı. Doğru bir yedek dosyası seçtiğinizden emin olun.');
+    }
+    evt.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+loadAll();
+</script>
+</body>
+</html>
