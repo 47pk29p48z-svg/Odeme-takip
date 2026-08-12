@@ -8,90 +8,136 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ödeme Takip">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#14161A">
-<link rel="apple-touch-icon" href="data:image/png;base64,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hTiuEH6SeMUC3hM/o1Fp0wF1Hg11qG6gvo13v93cslQ8wvYK4XHcOTsjnTkQ60Srd/w7l8te5aW9Hdypvng7Hv70P8LjMBsNKxeyv/FX9l04xfyjv5oSij775ln3MO+SSv6kpJpK3i9ofdPi2uODi3MmpfJegKKEoxveaI2tD78S+c7vW+v559PWLcuXcUnlKlrEkZwkP/o59t3uQ/7w46+1cPcv7b3+b7zadLyZfTw8s9i2dFY6dyp902jUwn0LMmfzn9QTDEVefKvj0c1nxnLm1DWobDrQ+dDLp1v5T4szmwzPrizmTqV7Gj1qUjZIz68ufWjj6RiG/Ne3Da3f0lyUZa2pTJtdai/JSc6wm5ItshKOen3hzv7Af59D2jwY880m65cVlOE5k9fQ7iG1uU7Lc18q+f62s7GdIO/o8+847N9xuEft9ZJqqpyrFuEg5To0HQz32ZnOp1R6pJNaZhTbfvpgqaDbMCc6rUdKrqrJ/urSyRovlDIlJ3njmjIrhosS4vC9fPOevCfuLYj7H+usEvtr6yvSUhLiLXeJKT5/NKvvyPnJ6tI4/skurU5/9bFyvInnxuL2d3PX7IyK/JQf7zyv8Zu8ki3y0ysK75uPd7zdXDx3t0VZ1tcfn75uWb5Nq/sAFlWmbd9QiTLGKM57XJPR8MiS3OXzMre+231AwHtlr5hRbFv3+fxPT8V7ZRkS4udYut30zP1Fj92dt/+Ya+9HKryR+gqLSV5anf7Awqwq5mPBQEqQOEalpZgeXpL78JLcps6R2gb30UZPy0VfbC9fynSY55c7Flc5F1So8C77W5ZGL+OJTUCJNHeNNHWNdPQFej3BSwNB93DIH4wElEgwFDHKBqtFTjLLNqsxO82S67RMzrCUTU6uLLRlOngXgeG6EjoOiC9scoGEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOID0H1ZiBYDEzyOAAAAAAElFTkSuQmCC">
-<link rel="icon" href="data:image/png;base64,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hTiuEH6SeMUC3hM/o1Fp0wF1Hg11qG6gvo13v93cslQ8wvYK4XHcOTsjnTkQ60Srd/w7l8te5aW9Hdypvng7Hv70P8LjMBsNKxeyv/FX9l04xfyjv5oSij775ln3MO+SSv6kpJpK3i9ofdPi2uODi3MmpfJegKKEoxveaI2tD78S+c7vW+v559PWLcuXcUnlKlrEkZwkP/o59t3uQ/7w46+1cPcv7b3+b7zadLyZfTw8s9i2dFY6dyp902jUwn0LMmfzn9QTDEVefKvj0c1nxnLm1DWobDrQ+dDLp1v5T4szmwzPrizmTqV7Gj1qUjZIz68ufWjj6RiG/Ne3Da3f0lyUZa2pTJtdai/JSc6wm5ItshKOen3hzv7Af59D2jwY880m65cVlOE5k9fQ7iG1uU7Lc18q+f62s7GdIO/o8+847N9xuEft9ZJqqpyrFuEg5To0HQz32ZnOp1R6pJNaZhTbfvpgqaDbMCc6rUdKrqrJ/urSyRovlDIlJ3njmjIrhosS4vC9fPOevCfuLYj7H+usEvtr6yvSUhLiLXeJKT5/NKvvyPnJ6tI4/skurU5/9bFyvInnxuL2d3PX7IyK/JQf7zyv8Zu8ki3y0ysK75uPd7zdXDx3t0VZ1tcfn75uWb5Nq/sAFlWmbd9QiTLGKM57XJPR8MiS3OXzMre+231AwHtlr5hRbFv3+fxPT8V7ZRkS4udYut30zP1Fj92dt/+Ya+9HKryR+gqLSV5anf7Awqwq5mPBQEqQOEalpZgeXpL78JLcps6R2gb30UZPy0VfbC9fynSY55c7Flc5F1So8C77W5ZGL+OJTUCJNHeNNHWNdPQFej3BSwNB93DIH4wElEgwFDHKBqtFTjLLNqsxO82S67RMzrCUTU6uLLRlOngXgeG6EjoOiC9scoGEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOID0H1ZiBYDEzyOAAAAAAElFTkSuQmCC">
+<meta name="theme-color" content="#F2F2F4">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<style>
+  html, body { color-scheme: light only; }
+</style>
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
 <style>
   :root{
-    --bg:#14161A; --surface:#1E2126; --surface2:#262A31; --line:#33383F;
-    --text:#EDEEF0; --muted:#8B909B;
-    --paper:#F7F3E8; --paper-line:#D9D2BE; --paper-text:#2B2822; --paper-muted:#7A7566;
-    --green:#2FAE66; --amber:#E8A33D; --red:#E1503D;
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --bg:#F2F2F4;
+    --surface:#FFFFFF;
+    --surface2:#F1F1F3;
+    --line:#EAEAEC;
+    --text:#131417;
+    --muted:#8C8E94;
+    --paper:#FFFFFF;
+    --paper-line:#EAEAEC;
+    --paper-text:#131417;
+    --paper-muted:#8C8E94;
+    --green:#1FA855;
+    --amber:#E8A33D;
+    --red:#E32227;
+    --black:#131417;
+    --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--sans); -webkit-font-smoothing:antialiased;
+  }
   .app{max-width:1120px; margin:0 auto; padding:18px 14px 70px;}
-  header.top{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px;}
-  header.top h1{font-size:19px; margin:0;}
-  header.top .eyebrow{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px;}
+  header.top{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
+  header.top h1{font-size:22px; margin:0; font-weight:900; letter-spacing:-0.02em; color:var(--text);}
+  header.top .eyebrow{
+    display:inline-block; font-size:11px; color:#fff; background:var(--red);
+    text-transform:uppercase; letter-spacing:0.5px; font-weight:800;
+    padding:5px 12px; border-radius:999px; margin-bottom:6px;
+  }
 
-  .warnbanner{background:rgba(232,163,61,0.12); border:1px solid rgba(232,163,61,0.4); color:var(--amber); border-radius:8px; padding:10px 12px; font-size:12px; margin-bottom:14px; display:none;}
+  .warnbanner{background:rgba(232,163,61,0.14); border:1px solid rgba(232,163,61,0.5); color:#8a5b0f; border-radius:10px; padding:10px 12px; font-size:12px; margin-bottom:14px; display:none;}
   .warnbanner.show{display:block;}
 
   .grid-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:16px;}
-  .stat{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
-  .stat .label{font-family:var(--mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;}
-  .stat .value{font-family:var(--mono); font-size:22px; font-weight:600;}
+  .stat{background:var(--surface); border-radius:16px; padding:14px 16px; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
+  .stat .label{font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; font-weight:800;}
+  .stat .value{font-size:26px; font-weight:900; letter-spacing:-0.01em; color:var(--text);}
   .stat .value.green{color:var(--green);} .stat .value.red{color:var(--red);}
-  .stat .substat{font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:4px;}
+  .stat .substat{font-size:10.5px; color:var(--muted); margin-top:4px; font-weight:700;}
 
-  .panel{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px;}
+  .panel{background:var(--surface); border-radius:16px; padding:16px 18px; margin-bottom:14px; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
   .panel-head{display:flex; justify-content:space-between; align-items:center; cursor:pointer;}
-  .panel h2{font-size:13px; margin:0; font-weight:700;}
-  .panel h2 .count{color:var(--muted); font-weight:400; font-family:var(--mono); font-size:11px;}
-  .month-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px dashed var(--line); cursor:pointer; font-size:13px;}
+  .panel h2{font-size:14px; margin:0; font-weight:900; text-transform:uppercase; letter-spacing:0.2px; color:var(--text);}
+  .panel h2 .count{color:var(--muted); font-weight:700; font-size:11px; text-transform:none;}
+  .month-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:11px 4px; border-bottom:1px solid var(--line); cursor:pointer; font-size:13px;}
   .month-row:last-child{border-bottom:none;}
-  .month-label{font-weight:600; flex:1;}
-  .month-meta{color:var(--muted); font-size:11px; font-family:var(--mono);}
-  .month-total{font-weight:700;}
+  .month-label{font-weight:800; flex:1; color:var(--text);}
+  .month-meta{color:var(--muted); font-size:11px; font-weight:700;}
+  .month-total{font-weight:900; color:var(--text);}
+  .row-item{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:11px 4px; border-bottom:1px solid var(--line); font-size:13px; flex-wrap:wrap;}
+  .row-item:last-child{border-bottom:none;}
+  .row-item .name{font-weight:800; color:var(--text);}
+  .row-item .sub{color:var(--muted); font-size:11px; font-weight:600;}
 
   .toolbar{display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; align-items:center;}
-  .toolbar input[type=text]{flex:1; min-width:160px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
+  .toolbar input[type=text]{flex:1; min-width:160px; padding:12px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-size:14px;}
   .toolbar input::placeholder{color:var(--muted);}
-  button.primary{background:var(--amber); color:#20180a; border:none; border-radius:8px; padding:10px 16px; font-weight:700; font-size:13px; cursor:pointer; font-family:var(--sans); white-space:nowrap;}
-  button.secondary{background:var(--surface2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:9px 13px; font-weight:600; font-size:12px; cursor:pointer; font-family:var(--sans);}
-  button.paidbtn{background:var(--green); color:#0e2417; border:none; border-radius:7px; padding:9px 14px; font-weight:700; font-size:12px; cursor:pointer; font-family:var(--sans); white-space:nowrap;}
-  button.editbtn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:6px; padding:6px 10px; font-size:11px; cursor:pointer; font-family:var(--sans);}
-  button.linklike{background:none; border:none; color:var(--muted); font-size:12px; cursor:pointer; text-decoration:underline; padding:0;}
-  button.del{background:none; border:none; color:var(--red); font-size:11px; cursor:pointer; font-weight:700;}
+  button.primary{background:var(--black); color:#fff; border:none; border-radius:999px; padding:12px 18px; font-weight:800; font-size:13px; cursor:pointer; font-family:var(--sans); white-space:nowrap; text-transform:uppercase; letter-spacing:0.3px;}
+  button.secondary{background:#fff; color:var(--text); border:1.5px solid var(--line); border-radius:999px; padding:10px 15px; font-weight:800; font-size:12px; cursor:pointer; font-family:var(--sans);}
+  button.paidbtn{background:var(--green); color:#fff; border:none; border-radius:999px; padding:9px 15px; font-weight:800; font-size:12px; cursor:pointer; font-family:var(--sans); white-space:nowrap;}
+  button.editbtn{background:#fff; border:1.5px solid var(--line); color:var(--text); border-radius:999px; padding:7px 12px; font-size:11px; font-weight:800; cursor:pointer; font-family:var(--sans);}
+  button.linklike{background:none; border:none; color:var(--text); font-size:12px; font-weight:800; cursor:pointer; text-decoration:underline; padding:0;}
+  button.del{background:#FDECEC; border:1.5px solid rgba(227,34,39,0.25); color:var(--red); font-size:10.5px; padding:6px 11px; border-radius:999px; cursor:pointer; font-weight:800;}
   .backup-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
-  .backup-row button{font-size:11px; padding:7px 11px;}
+  .backup-row button{font-size:11px; padding:9px 14px;}
+  .iconbtn{
+    width:44px; height:44px; border-radius:14px; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:19px;
+    box-shadow:0 1px 2px rgba(20,20,25,0.08), 0 1px 8px rgba(20,20,25,0.08);
+    background:#fff;
+  }
+  .iconbtn-green{color:var(--green);}
+  .iconbtn-red{color:var(--red);}
+  .calendar-toggle-card{cursor:pointer; display:flex; flex-direction:column; justify-content:center;}
+  .cal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+  .cal-cell{background:var(--surface2); border-radius:12px; padding:10px 8px; text-align:center;}
+  .cal-cell-active{background:var(--red); }
+  .cal-cell-active .cal-month, .cal-cell-active .cal-amount{color:#fff;}
+  .cal-month{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); margin-bottom:4px;}
+  .cal-amount{font-size:11.5px; font-weight:800; color:var(--text);}
 
-  .tablewrap{background:var(--surface); border:1px solid var(--line); border-radius:12px; overflow-x:auto;}
+  .tablewrap{background:var(--surface); border-radius:16px; overflow-x:auto; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
   table{width:100%; border-collapse:collapse; min-width:820px;}
   thead th{
-    position:sticky; top:0; background:var(--surface2); text-align:left; font-family:var(--mono); font-size:10px;
-    text-transform:uppercase; letter-spacing:1px; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap;
+    position:sticky; top:0; background:var(--surface2); text-align:left; font-size:10px;
+    text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); padding:12px 14px; border-bottom:1px solid var(--line); white-space:nowrap; font-weight:900;
   }
-  tbody td{padding:10px 12px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle;}
+  tbody td{padding:12px 14px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle;}
   tbody tr:last-child td{border-bottom:none;}
-  tbody tr:hover{background:rgba(255,255,255,0.02);}
-  .sname{font-weight:700;}
-  .badge{font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:20px; font-weight:600; white-space:nowrap; display:inline-block;}
-  .badge.paid{background:rgba(47,174,102,0.15); color:var(--green);}
-  .badge.unpaid{background:rgba(225,80,61,0.15); color:var(--red);}
-  .badge.never{background:rgba(139,144,155,0.15); color:var(--muted);}
-  .mono{font-family:var(--mono);}
-  .ibare{font-size:11px; color:var(--muted); margin-top:4px; font-family:var(--mono);}
-  .hist-toggle{color:var(--muted); font-size:11px; cursor:pointer; text-decoration:underline;}
+  tbody tr:hover{background:var(--surface2);}
+  .sname{font-weight:800; color:var(--text); display:flex; align-items:center; gap:10px;}
+  .avatar{
+    width:34px; height:34px; min-width:34px; border-radius:50%; background:var(--surface2); color:var(--muted);
+    display:inline-flex; align-items:center; justify-content:center; font-weight:900; font-size:12px;
+  }
+  .badge{font-size:10.5px; padding:5px 11px; border-radius:999px; font-weight:800; white-space:nowrap; display:inline-block; text-transform:uppercase; letter-spacing:0.3px;}
+  .badge.paid{background:var(--green); color:#fff;}
+  .badge.unpaid{background:var(--red); color:#fff;}
+  .badge.never{background:var(--surface2); color:var(--muted);}
+  .badge.pending2{background:var(--amber); color:#fff;}
+  .mono{font-family:var(--mono); font-weight:800;}
+  .ibare{font-size:11px; color:var(--muted); margin-top:4px; font-weight:600;}
+  .hist-toggle{color:var(--text); font-size:11px; font-weight:800; cursor:pointer; text-decoration:underline;}
   .actioncell{display:flex; gap:6px; flex-wrap:wrap;}
 
-  .histbox{background:var(--paper); color:var(--paper-text); border-radius:6px; padding:10px 12px; margin:6px 0 4px; border:1px solid var(--paper-line);}
-  .histbox .hrow{display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; padding:5px 0; border-bottom:1px dashed var(--paper-line); gap:10px; align-items:center;}
+  .histbox{background:var(--surface2); border-radius:10px; padding:10px 12px; margin:6px 0 4px;}
+  .histbox .hrow{display:flex; justify-content:space-between; font-size:12px; padding:6px 0; border-bottom:1px solid var(--line); gap:10px; align-items:center; font-weight:700;}
   .histbox .hrow:last-child{border-bottom:none;}
-  .histbox .empty{font-size:12px; color:var(--paper-muted); font-style:italic;}
+  .histbox .empty{font-size:12px; color:var(--muted); font-style:italic; font-weight:600;}
 
-  .overlay{position:fixed; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:50; padding:16px;}
-  .modal{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px; width:100%; max-width:420px;}
-  .modal h3{margin:0 0 14px; font-size:16px;}
+  .overlay{position:fixed; inset:0; background:rgba(10,10,12,0.55); display:flex; align-items:center; justify-content:center; z-index:50; padding:16px;}
+  .modal{background:var(--surface); border-radius:20px; padding:22px; width:100%; max-width:420px; max-height:85vh; overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  .modal h3{margin:0 0 14px; font-size:17px; font-weight:900; color:var(--text);}
   .field{margin-bottom:12px;}
-  .field label{display:block; font-size:12px; color:var(--muted); margin-bottom:5px; font-family:var(--mono); text-transform:uppercase; letter-spacing:0.5px;}
-  .field input{width:100%; padding:10px 11px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
-  .modal-actions{display:flex; gap:8px; margin-top:16px;}
+  .field label{display:block; font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;}
+  .field input{width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
+  .modal-actions{display:flex; gap:8px; margin-top:16px; position:sticky; bottom:-22px; background:var(--surface); padding:10px 0 4px; margin-bottom:-22px;}
   .modal-actions button{flex:1;}
-  footer.note{text-align:center; color:var(--muted); font-size:11px; margin-top:24px; font-family:var(--mono);}
+  footer.note{text-align:center; color:var(--muted); font-size:11px; margin-top:24px; font-weight:600;}
   @media(max-width:600px){ .grid-stats{grid-template-columns:repeat(2,1fr);} }
 </style>
 </head>
@@ -119,34 +165,79 @@ function saveList(key, list){
 
 let students = [];
 let payments = [];
+let installments = []; // {id, studentId, amount, dueDate, paid, paidDate, note, createdAt}
 let ready = false;
 let expanded = {};
 let searchQ = '';
 let allHistoryOpen = false;
+let calendarOpen = false;
+let calendarYear = new Date().getFullYear();
 let monthOpen = {};
 let addModalOpen = false;
 let editingStudentId = null;
 let editingPaymentId = null;
+let installmentModalStudentId = null;
 let confirmState = null; // {message, action}
 let alertState = null; // string
 
 function loadAll(){
   students = getList('coach_students_v3');
   payments = getList('coach_payments_v3');
+  installments = getList('coach_installments_v1');
   ready = true;
   render();
 }
 
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
-function todayStr(){ return new Date().toISOString().slice(0,10); }
+function todayStr(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 function fmtDate(d){ if(!d) return '—'; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
 function fmtMoney(n){ return (n||0).toLocaleString('tr-TR')+' TL'; }
+function initials(name){
+  return (name||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
 function isThisMonth(d){ if(!d) return false; const now=new Date(); const dt=new Date(d+'T00:00:00'); return dt.getFullYear()===now.getFullYear() && dt.getMonth()===now.getMonth(); }
 
 function studentPayments(sid){
   return payments.filter(p=>p.studentId===sid).sort((a,b)=> b.date.localeCompare(a.date) || (b.createdAt||'').localeCompare(a.createdAt||''));
 }
 function studentTotal(sid){ return payments.filter(p=>p.studentId===sid).reduce((s,p)=>s+Number(p.amount||0),0); }
+
+function daysBetween(dateStr){
+  const today = new Date(todayStr()+'T00:00:00');
+  const target = new Date(dateStr+'T00:00:00');
+  return Math.round((target - today) / 86400000);
+}
+function installmentStatus(inst){
+  if(inst.paid) return 'paid';
+  const d = daysBetween(inst.dueDate);
+  if(d < 0) return 'overdue';
+  if(d <= 7) return 'upcoming';
+  return 'scheduled';
+}
+function studentInstallments(sid){
+  return installments.filter(i=>i.studentId===sid).sort((a,b)=> a.dueDate.localeCompare(b.dueDate));
+}
+function pendingInstallments(){
+  return installments.filter(i=>!i.paid).sort((a,b)=> a.dueDate.localeCompare(b.dueDate));
+}
+function installmentStatusLabel(status){
+  if(status==='overdue') return 'Gecikti';
+  if(status==='upcoming') return 'Bu hafta';
+  if(status==='paid') return 'Ödendi';
+  return 'Planlandı';
+}
+function installmentStatusClass(status){
+  if(status==='overdue') return 'unpaid';
+  if(status==='upcoming') return 'pending2';
+  if(status==='paid') return 'paid';
+  return 'never';
+}
 
 function monthKey(d){ return d.slice(0,7); }
 function monthLabel(key){
@@ -176,7 +267,11 @@ function globalStats(){
   const paidThisMonth = students.filter(s=> studentPayments(s.id).some(p=>isThisMonth(p.date))).length;
   const unpaidThisMonth = students.length - paidThisMonth;
   const monthsEarnedCount = new Set(payments.map(p=>monthKey(p.date))).size;
-  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount};
+  const pending = pendingInstallments();
+  const overdueInstallments = pending.filter(i=>installmentStatus(i)==='overdue');
+  const upcomingInstallments = pending.filter(i=>installmentStatus(i)==='upcoming');
+  const pendingInstallmentTotal = pending.reduce((s,i)=>s+Number(i.amount||0),0);
+  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount, pending, overdueInstallments, upcomingInstallments, pendingInstallmentTotal};
 }
 
 function render(){
@@ -186,25 +281,29 @@ function render(){
   let h = `
   <header class="top">
     <div><div class="eyebrow">Kişisel Koçluk</div><h1>Ödeme Takip Defteri</h1></div>
+    <div style="display:flex; gap:8px;">
+      <button class="iconbtn iconbtn-green" onclick="exportBackup()" title="Kaydet" aria-label="Yedekle (kaydet)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg></button>
+      <button class="iconbtn iconbtn-red" onclick="document.getElementById('importFile').click()" title="Kaydı Aktar" aria-label="Yedeği geri yükle"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg></button>
+    </div>
   </header>
-  <div class="warnbanner ${STORAGE_OK?'':'show'}">Bu tarayıcıda kalıcı depolama kullanılamıyor (gizli/özel sekme olabilir). Veriler yalnızca bu oturum boyunca tutulacak — sayfayı kapatmadan önce mutlaka "Yedekle" ile dışa aktarın.</div>
+  <div class="warnbanner ${STORAGE_OK?'':'show'}">Bu tarayıcıda kalıcı depolama kullanılamıyor (gizli/özel sekme olabilir). Veriler yalnızca bu oturum boyunca tutulacak — sayfayı kapatmadan önce mutlaka yeşil disket ile kaydedin.</div>
   <div class="grid-stats">
     <div class="stat"><div class="label">Toplam Öğrenci</div><div class="value">${students.length}</div></div>
     <div class="stat"><div class="label">Bu Ay Ödeyen</div><div class="value green">${g.paidThisMonth}</div></div>
     <div class="stat"><div class="label">Bu Ay Ödemeyen</div><div class="value ${g.unpaidThisMonth>0?'red':''}">${g.unpaidThisMonth}</div></div>
     <div class="stat"><div class="label">Bu Ay Tahsilat</div><div class="value">${fmtMoney(g.totalMonth)}</div></div>
     <div class="stat"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.totalAll)}</div><div class="substat">${g.monthsEarnedCount} ayda kazanıldı</div></div>
+    <div class="stat calendar-toggle-card" onclick="toggleCalendar()">
+      <div class="label">${calendarOpen ? 'Kapat' : 'Görüntüle'}</div>
+      <div class="value" style="font-size:16px; display:flex; align-items:center; gap:6px;">📅 Aylık Takvim</div>
+    </div>
   </div>
-  <div class="toolbar">
-    <input type="text" placeholder="Öğrenci ara…" value="${searchQ}" oninput="onSearch(this.value)">
-    <button class="primary" onclick="openAddModal()">+ Kişi Ekle</button>
-  </div>
-  <div class="backup-row">
-    <button class="secondary" onclick="exportBackup()">⭳ Yedekle (dosyaya kaydet)</button>
-    <button class="secondary" onclick="document.getElementById('importFile').click()">⭱ Yedekten Geri Yükle</button>
-    <button class="secondary" onclick="openTextBackupModal()">📋 Yedeği Metin Olarak Göster / Kopyala</button>
-    <button class="secondary" onclick="openTextImportModal()">📥 Metinden İçe Aktar</button>
-  </div>
+  ${calendarOpen ? renderCalendarPanel() : ''}
+  ${g.pending.length ? `
+  <section class="panel" style="border-color:${g.overdueInstallments.length?'rgba(225,80,61,0.4)':(g.upcomingInstallments.length?'rgba(232,163,61,0.4)':'var(--line)')};">
+    <h2 style="margin-bottom:10px;">⏰ Taksit Takibi <span class="count">(${g.pending.length} bekleyen · ${fmtMoney(g.pendingInstallmentTotal)})</span></h2>
+    ${renderInstallmentList(g.pending)}
+  </section>` : ''}
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
       <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length} kayıt)</span></h2>
@@ -212,6 +311,10 @@ function render(){
     </div>
     ${allHistoryOpen ? renderMonthlyBreakdown() : ''}
   </section>
+  <div class="toolbar">
+    <input type="text" placeholder="Öğrenci ara…" value="${searchQ}" oninput="onSearch(this.value)">
+    <button class="primary" onclick="openAddModal()">+ Kişi Ekle</button>
+  </div>
   <div class="tablewrap"><table>
     <thead><tr>
       <th>Öğrenci</th><th>Ders Ücreti</th><th>Durum</th><th>Son Ödeme</th><th>İşlemler</th><th></th>
@@ -230,7 +333,7 @@ function render(){
     let badge = `<span class="badge never">Hiç ödeme yok</span>`;
     if(last){ badge = paidNow? `<span class="badge paid">Bu ay ödedi</span>` : `<span class="badge unpaid">Bu ay ödemedi</span>`; }
     h += `<tr>
-      <td class="sname">${s.name}<div><button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button></div></td>
+      <td class="sname"><span class="avatar">${initials(s.name)}</span><div>${s.name}<div><button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button></div></div></td>
       <td class="mono">${fmtMoney(s.price)}</td>
       <td>${badge}</td>
       <td class="mono">
@@ -241,6 +344,7 @@ function render(){
         <div class="actioncell">
           <button class="paidbtn" onclick="markPaidToday('${s.id}')">✓ Ücret Ödendi</button>
           <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
+          <button class="editbtn" onclick="openInstallmentModal('${s.id}')">🗓️ Taksit Planla</button>
         </div>
       </td>
       <td><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'gizle' : 'geçmiş ('+hist.length+')'}</span></td>
@@ -251,6 +355,19 @@ function render(){
       else{
         hist.forEach(p=>{
           h += `<div class="hrow"><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span><span style="display:flex;gap:8px;"><button class="linklike" onclick="openEditPaymentModal('${p.id}')">düzenle</button><button class="del" onclick="deletePayment('${p.id}')">sil</button></span></div>`;
+        });
+      }
+      const sInst = studentInstallments(s.id);
+      if(sInst.length){
+        h += `<div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--paper-line); font-weight:700; font-size:12px;">Taksitler</div>`;
+        sInst.forEach(i=>{
+          const status = installmentStatus(i);
+          h += `<div class="hrow"><span>${fmtDate(i.dueDate)}${i.note? ' · '+i.note : ''}</span><span>${fmtMoney(i.amount)}</span><span style="display:flex;gap:8px;align-items:center;">
+            <span class="badge ${installmentStatusClass(status)}" style="font-size:10px;">${installmentStatusLabel(status)}</span>
+            ${!i.paid? `<button class="linklike" onclick="markInstallmentPaid('${i.id}')">ödendi işaretle</button>`:''}
+            <button class="linklike" onclick="openEditInstallmentModal('${i.id}')">düzenle</button>
+            <button class="del" onclick="deleteInstallment('${i.id}')">sil</button>
+          </span></div>`;
         });
       }
       h += `</div></td></tr>`;
@@ -264,6 +381,8 @@ function render(){
   if(addModalOpen) renderAddModal();
   if(editingStudentId) renderEditModal();
   if(editingPaymentId) renderEditPaymentModal();
+  if(installmentModalStudentId) renderInstallmentModal();
+  if(editingInstallmentId) renderEditInstallmentModal();
   if(textBackupOpen) renderTextBackupModal();
   if(textImportOpen) renderTextImportModal();
   if(confirmState) renderConfirmModal();
@@ -273,6 +392,42 @@ function render(){
 function onSearch(v){ searchQ=v; render(); const el=document.querySelector('.toolbar input'); if(el){ el.focus(); el.setSelectionRange(v.length,v.length);} }
 function toggleHist(sid){ expanded[sid] = !expanded[sid]; render(); }
 function toggleAllHistory(){ allHistoryOpen = !allHistoryOpen; render(); }
+function toggleCalendar(){ calendarOpen = !calendarOpen; render(); }
+function changeCalendarYear(delta){ calendarYear += delta; render(); }
+const MONTH_SHORT = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+function monthTotal(year, monthIdx){
+  return payments.filter(p=>{
+    const [y,m] = p.date.split('-').map(Number);
+    return y===year && (m-1)===monthIdx;
+  }).reduce((s,p)=>s+Number(p.amount||0),0);
+}
+function renderCalendarPanel(){
+  const now = new Date();
+  const isCurrentYear = calendarYear === now.getFullYear();
+  let cells = '';
+  for(let i=0;i<12;i++){
+    const total = monthTotal(calendarYear, i);
+    let prevTotal;
+    if(i===0){ prevTotal = monthTotal(calendarYear-1, 11); }
+    else{ prevTotal = monthTotal(calendarYear, i-1); }
+    let arrow = '';
+    if(prevTotal>0 && total>prevTotal){ arrow = `<span style="color:var(--green); font-weight:900;">▲</span>`; }
+    else if(prevTotal>0 && total<prevTotal){ arrow = `<span style="color:var(--red); font-weight:900;">▼</span>`; }
+    const isThisMonthCell = isCurrentYear && i===now.getMonth();
+    cells += `<div class="cal-cell ${isThisMonthCell?'cal-cell-active':''}">
+      <div class="cal-month">${MONTH_SHORT[i]}</div>
+      <div class="cal-amount">${fmtMoney(total)} ${arrow}</div>
+    </div>`;
+  }
+  return `<section class="panel">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+      <button class="editbtn" onclick="changeCalendarYear(-1)">‹</button>
+      <h2 style="margin:0;">${calendarYear}</h2>
+      <button class="editbtn" onclick="changeCalendarYear(1)">›</button>
+    </div>
+    <div class="cal-grid">${cells}</div>
+  </section>`;
+}
 function toggleMonth(key){ monthOpen[key] = !monthOpen[key]; render(); }
 function renderMonthlyBreakdown(){
   const months = monthlyBreakdown();
@@ -287,7 +442,13 @@ function renderMonthlyBreakdown(){
     if(monthOpen[mo.key]){
       out += `<div class="histbox" style="margin-left:0;">`;
       mo.items.forEach(p=>{
-        out += `<div class="hrow"><span>${memberNameOf(p.studentId)}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
+        const pendingForStudent = studentInstallments(p.studentId).filter(i=>!i.paid);
+        out += `<div class="hrow" style="align-items:flex-start;"><span>${memberNameOf(p.studentId)}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
+        if(pendingForStudent.length){
+          out += `<div style="padding:2px 0 6px 4px; font-size:11px; color:var(--paper-muted);">
+            🗓️ ${pendingForStudent.length} bekleyen taksit: ${pendingForStudent.map(i=> fmtMoney(i.amount)+' ('+fmtDate(i.dueDate)+')').join(', ')}
+          </div>`;
+        }
       });
       out += `</div>`;
     }
@@ -295,6 +456,48 @@ function renderMonthlyBreakdown(){
   return out;
 }
 function memberNameOf(sid){ const s = students.find(x=>x.id===sid); return s ? s.name : '(silinmiş öğrenci)'; }
+let instStudentExpanded = {};
+function toggleInstStudent(sid){ instStudentExpanded[sid] = !instStudentExpanded[sid]; render(); }
+function renderInstallmentList(list){
+  if(list.length===0){ return `<div class="empty">Bekleyen taksit yok.</div>`; }
+  const groups = {};
+  list.forEach(i=>{
+    if(!groups[i.studentId]) groups[i.studentId] = [];
+    groups[i.studentId].push(i);
+  });
+  let out = '';
+  Object.keys(groups).forEach(sid=>{
+    const items = groups[sid].slice().sort((a,b)=> a.dueDate.localeCompare(b.dueDate));
+    const total = items.reduce((s,i)=>s+Number(i.amount||0),0);
+    const worst = items.some(i=>installmentStatus(i)==='overdue') ? 'overdue' : (items.some(i=>installmentStatus(i)==='upcoming') ? 'upcoming' : 'scheduled');
+    const isOpen = !!instStudentExpanded[sid];
+    out += `<div class="row-item" style="cursor:pointer;" onclick="toggleInstStudent('${sid}')">
+      <div><div class="name">${memberNameOf(sid)}</div><div class="sub">${items.length} taksit · Toplam ${fmtMoney(total)}</div></div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge ${installmentStatusClass(worst)}">${installmentStatusLabel(worst)}</span>
+        <span class="hist-toggle">${isOpen? 'gizle' : 'göster'}</span>
+      </div>
+    </div>`;
+    if(isOpen){
+      out += `<div class="histbox" style="margin:6px 0 4px;">`;
+      items.forEach(i=>{
+        const status = installmentStatus(i);
+        out += `<div class="hrow" style="align-items:center;">
+          <span>${fmtDate(i.dueDate)}${i.note? ' · '+i.note : ''}</span>
+          <span>${fmtMoney(i.amount)}</span>
+          <span style="display:flex;gap:8px;align-items:center;">
+            <span class="badge ${installmentStatusClass(status)}" style="font-size:10px;">${installmentStatusLabel(status)}</span>
+            <button class="linklike" onclick="event.stopPropagation(); markInstallmentPaid('${i.id}')">ödendi</button>
+            <button class="linklike" onclick="event.stopPropagation(); openEditInstallmentModal('${i.id}')">düzenle</button>
+            <button class="del" onclick="event.stopPropagation(); deleteInstallment('${i.id}')">sil</button>
+          </span>
+        </div>`;
+      });
+      out += `</div>`;
+    }
+  });
+  return out;
+}
 
 function markPaidToday(sid){
   const s = students.find(x=>x.id===sid);
@@ -451,10 +654,157 @@ function submitEditPayment(){
   render();
 }
 
+/* ---------- installments (taksitler) ---------- */
+let instRows = []; // [{id, amount, date, note}]
+function openInstallmentModal(sid){
+  installmentModalStudentId = sid;
+  instRows = [{id:uid(), amount:'', date:todayStr(), note:''}];
+  render();
+}
+function closeInstallmentModal(){ installmentModalStudentId = null; instRows=[]; const ov=document.getElementById('instOverlay'); if(ov) ov.remove(); }
+function syncInstRowsFromDOM(){
+  instRows.forEach(row=>{
+    const a = document.getElementById('row_amount_'+row.id);
+    const d = document.getElementById('row_date_'+row.id);
+    const n = document.getElementById('row_note_'+row.id);
+    if(a) row.amount = a.value;
+    if(d) row.date = d.value;
+    if(n) row.note = n.value;
+  });
+  const uf = document.getElementById('i_upfront');
+  if(uf) instRows._upfront = uf.value;
+}
+function addInstallmentRow(){
+  syncInstRowsFromDOM();
+  let suggestedDate = todayStr();
+  const last = instRows[instRows.length-1];
+  if(last && last.date){
+    const [y,m,dd] = last.date.split('-').map(Number);
+    const d = new Date(y, m-1, dd);
+    d.setMonth(d.getMonth()+1);
+    const yy = d.getFullYear();
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    suggestedDate = `${yy}-${mm}-${day}`;
+  }
+  instRows.push({id:uid(), amount:'', date:suggestedDate, note:''});
+  render();
+}
+function removeInstallmentRow(rid){
+  syncInstRowsFromDOM();
+  instRows = instRows.filter(r=>r.id!==rid);
+  render();
+}
+function renderInstallmentModal(){
+  const s = students.find(x=>x.id===installmentModalStudentId);
+  if(!s){ installmentModalStudentId=null; return; }
+  const existing = document.getElementById('instOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='instOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeInstallmentModal(); };
+  const upfrontVal = instRows._upfront || '';
+  let rowsHtml = '';
+  instRows.forEach((row,idx)=>{
+    rowsHtml += `<div style="border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <span style="font-size:11px; color:var(--muted); font-family:var(--mono); text-transform:uppercase;">Taksit ${idx+1}</span>
+        ${instRows.length>1 ? `<button class="del" onclick="removeInstallmentRow('${row.id}')">satırı sil</button>` : ''}
+      </div>
+      <div class="field" style="margin-bottom:8px;"><label>Tutar (TL)</label><input type="number" min="0" id="row_amount_${row.id}" value="${row.amount}" placeholder="Örn: 10000"></div>
+      <div class="field" style="margin-bottom:8px;"><label>Vade Tarihi</label><input type="date" id="row_date_${row.id}" value="${row.date}"></div>
+      <div class="field" style="margin-bottom:0;"><label>Not (opsiyonel)</label><input type="text" id="row_note_${row.id}" value="${row.note}" placeholder="Örn: 2. taksit"></div>
+    </div>`;
+  });
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Taksitli Paket — ${s.name}</h3>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Örn: 30 derslik paket — bir kısmı bugün alınıyor (peşinat), kalanı istediğin sayıda taksitle, her biri ayrı tarih ve tutarla.</p>
+    <div class="field"><label>Peşinat / Şimdi Alınan Tutar (varsa, TL)</label><input type="number" min="0" id="i_upfront" value="${upfrontVal}" placeholder="Örn: 10000 (yoksa boş bırakın)"></div>
+    <p style="font-size:11px;color:var(--muted);margin:-6px 0 12px;">Girilirse bugünün tarihiyle hemen ödeme olarak kaydedilir.</p>
+    <div style="border-top:1px dashed var(--line); margin:0 0 12px;"></div>
+    ${rowsHtml}
+    <button class="secondary" style="width:100%; margin-bottom:14px;" onclick="addInstallmentRow()">+ Taksit Ekle</button>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeInstallmentModal()">Vazgeç</button>
+      <button class="primary" onclick="submitInstallment()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitInstallment(){
+  syncInstRowsFromDOM();
+  const sid = installmentModalStudentId;
+  const upfront = Number(instRows._upfront||0);
+  const validRows = instRows.filter(r=> Number(r.amount)>0);
+  const invalidRow = validRows.find(r=> !r.date);
+  if(!upfront && validRows.length===0){ showAlert('Peşinat veya en az bir taksit satırı girin.'); return; }
+  if(invalidRow){ showAlert('Tutar girilen her taksit satırı için vade tarihi de girilmeli.'); return; }
+  if(upfront>0){
+    payments.push({id:uid(), studentId:sid, amount:upfront, date:todayStr(), createdAt:new Date().toISOString(), note:'Peşinat'});
+    saveList('coach_payments_v3', payments);
+  }
+  validRows.forEach(r=>{
+    installments.push({id:uid(), studentId:sid, amount:Number(r.amount), dueDate:r.date, paid:false, paidDate:null, note:(r.note||'').trim(), createdAt:new Date().toISOString()});
+  });
+  if(validRows.length){ saveList('coach_installments_v1', installments); }
+  closeInstallmentModal();
+  render();
+}
+function markInstallmentPaid(iid){
+  const i = installments.find(x=>x.id===iid);
+  if(!i) return;
+  i.paid = true;
+  i.paidDate = todayStr();
+  payments.push({id:uid(), studentId:i.studentId, amount:i.amount, date:todayStr(), createdAt:new Date().toISOString(), note:i.note||'Taksit ödemesi'});
+  saveList('coach_installments_v1', installments);
+  saveList('coach_payments_v3', payments);
+  render();
+}
+function deleteInstallment(iid){
+  askConfirm('Bu taksit planı silinecek (henüz kaydedilmiş bir ödemeyi silmez).', ()=>{
+    installments = installments.filter(x=>x.id!==iid);
+    saveList('coach_installments_v1', installments);
+    render();
+  });
+}
+let editingInstallmentId = null;
+function openEditInstallmentModal(iid){ editingInstallmentId = iid; render(); }
+function closeEditInstallmentModal(){ editingInstallmentId = null; const ov=document.getElementById('editInstOverlay'); if(ov) ov.remove(); }
+function renderEditInstallmentModal(){
+  const i = installments.find(x=>x.id===editingInstallmentId);
+  if(!i){ editingInstallmentId=null; return; }
+  const s = students.find(x=>x.id===i.studentId);
+  const existing = document.getElementById('editInstOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='editInstOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeEditInstallmentModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Taksiti Düzenle${s? ' — '+s.name : ''}</h3>
+    <div class="field"><label>Tutar (TL)</label><input type="number" min="0" id="ei_amount" value="${i.amount}"></div>
+    <div class="field"><label>Vade Tarihi</label><input type="date" id="ei_date" value="${i.dueDate}"></div>
+    <div class="field"><label>Not (opsiyonel)</label><input type="text" id="ei_note" value="${i.note||''}" onkeydown="if(event.key==='Enter'){submitEditInstallment()}"></div>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeEditInstallmentModal()">Vazgeç</button>
+      <button class="primary" onclick="submitEditInstallment()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitEditInstallment(){
+  const i = installments.find(x=>x.id===editingInstallmentId);
+  if(!i) return;
+  const amount = Number(document.getElementById('ei_amount').value||0);
+  const dueDate = document.getElementById('ei_date').value;
+  const note = document.getElementById('ei_note').value.trim();
+  if(!amount || amount<=0){ showAlert('Geçerli bir tutar girin.'); return; }
+  if(!dueDate){ showAlert('Vade tarihi girin.'); return; }
+  i.amount = amount; i.dueDate = dueDate; i.note = note;
+  saveList('coach_installments_v1', installments);
+  closeEditInstallmentModal();
+  render();
+}
+
 /* ---------- backup / restore ---------- */
 function exportBackup(){
   try{
-    const data = {students, payments, exportedAt:new Date().toISOString()};
+    const data = {students, payments, installments, exportedAt:new Date().toISOString()};
     const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -474,7 +824,7 @@ function openTextBackupModal(){ textBackupOpen = true; render(); }
 function closeTextBackupModal(){ textBackupOpen = false; const ov=document.getElementById('textBackupOverlay'); if(ov) ov.remove(); }
 function renderTextBackupModal(){
   const existing = document.getElementById('textBackupOverlay'); if(existing) existing.remove();
-  const data = {students, payments, exportedAt:new Date().toISOString()};
+  const data = {students, payments, installments, exportedAt:new Date().toISOString()};
   const json = JSON.stringify(data);
   const div = document.createElement('div'); div.id='textBackupOverlay'; div.className='overlay';
   div.onclick=(e)=>{ if(e.target===div) closeTextBackupModal(); };
@@ -524,9 +874,10 @@ function submitTextImport(){
     if(!Array.isArray(data.students) || !Array.isArray(data.payments)) throw new Error('geçersiz format');
     closeTextImportModal();
     askConfirm('Mevcut liste, yapıştırılan yedekle değiştirilecek.', ()=>{
-      students = data.students; payments = data.payments;
+      students = data.students; payments = data.payments; installments = Array.isArray(data.installments) ? data.installments : [];
       saveList('coach_students_v3', students);
       saveList('coach_payments_v3', payments);
+      saveList('coach_installments_v1', installments);
       render();
     });
   }catch(err){
@@ -542,9 +893,10 @@ function handleImportFile(evt){
       const data = JSON.parse(e.target.result);
       if(!Array.isArray(data.students) || !Array.isArray(data.payments)) throw new Error('geçersiz format');
       askConfirm('Mevcut liste, yedekteki verilerle değiştirilecek.', ()=>{
-        students = data.students; payments = data.payments;
+        students = data.students; payments = data.payments; installments = Array.isArray(data.installments) ? data.installments : [];
         saveList('coach_students_v3', students);
         saveList('coach_payments_v3', payments);
+        saveList('coach_installments_v1', installments);
         render();
       });
     }catch(err){
