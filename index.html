@@ -101,15 +101,14 @@
   .cal-amount{font-size:11.5px; font-weight:800; color:var(--text);}
 
   .tablewrap{background:var(--surface); border-radius:16px; overflow-x:auto; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
-  table{width:100%; border-collapse:collapse; min-width:820px;}
-  thead th{
-    position:sticky; top:0; background:var(--surface2); text-align:left; font-size:10px;
-    text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); padding:12px 14px; border-bottom:1px solid var(--line); white-space:nowrap; font-weight:900;
-  }
-  tbody td{padding:12px 14px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle;}
-  tbody tr:last-child td{border-bottom:none;}
-  tbody tr:hover{background:var(--surface2);}
-  .sname{font-weight:800; color:var(--text); display:flex; align-items:center; gap:10px;}
+  table{width:100%; border-collapse:collapse;}
+  .student-list{display:flex; flex-direction:column; gap:10px;}
+  .student-card{background:var(--surface); border-radius:16px; padding:14px 16px; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
+  .student-card-top{display:flex; align-items:center; gap:12px;}
+  .student-card-info{flex:1; min-width:0;}
+  .student-card-name{font-weight:900; font-size:15px; color:var(--text); text-transform:uppercase; letter-spacing:0.2px;}
+  .student-card-sub{font-size:11.5px; color:var(--muted); font-weight:700; margin-top:2px;}
+  .student-card-last{font-size:11.5px; color:var(--muted); font-weight:700; margin-top:10px; padding-top:10px; border-top:1px solid var(--line);}
   .avatar{
     width:34px; height:34px; min-width:34px; border-radius:50%; background:var(--surface2); color:var(--muted);
     display:inline-flex; align-items:center; justify-content:center; font-weight:900; font-size:12px;
@@ -315,16 +314,12 @@ function render(){
     <input type="text" placeholder="Öğrenci ara…" value="${searchQ}" oninput="onSearch(this.value)">
     <button class="primary" onclick="openAddModal()">+ Kişi Ekle</button>
   </div>
-  <div class="tablewrap"><table>
-    <thead><tr>
-      <th>Öğrenci</th><th>Ders Ücreti</th><th>Durum</th><th>Son Ödeme</th><th>İşlemler</th><th></th>
-    </tr></thead>
-    <tbody>`;
+  <div class="student-list">`;
 
   const q = searchQ.trim().toLowerCase();
   const list = students.filter(s=>s.name.toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
   if(list.length===0){
-    h += `<tr><td colspan="6" style="color:var(--muted); text-align:center; padding:24px;">Öğrenci yok. "+ Kişi Ekle" ile ekleyin.</td></tr>`;
+    h += `<div class="panel" style="text-align:center; color:var(--muted);">Öğrenci yok. "+ Kişi Ekle" ile ekleyin.</div>`;
   }
   list.forEach(s=>{
     const hist = studentPayments(s.id);
@@ -332,25 +327,25 @@ function render(){
     const paidNow = last && isThisMonth(last.date);
     let badge = `<span class="badge never">Hiç ödeme yok</span>`;
     if(last){ badge = paidNow? `<span class="badge paid">Bu ay ödedi</span>` : `<span class="badge unpaid">Bu ay ödemedi</span>`; }
-    h += `<tr>
-      <td class="sname"><span class="avatar">${initials(s.name)}</span><div>${s.name}<div><button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button></div></div></td>
-      <td class="mono">${fmtMoney(s.price)}</td>
-      <td>${badge}</td>
-      <td class="mono">
-        ${last? fmtDate(last.date)+' · '+fmtMoney(last.amount) : '—'}
-        ${last? `<div class="ibare">${s.name}, ${fmtDate(last.date)} tarihinde ${fmtMoney(last.amount)} ödedi.</div>` : ''}
-      </td>
-      <td>
-        <div class="actioncell">
-          <button class="paidbtn" onclick="markPaidToday('${s.id}')">✓ Ücret Ödendi</button>
-          <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
-          <button class="editbtn" onclick="openInstallmentModal('${s.id}')">🗓️ Taksit Planla</button>
+    h += `<div class="student-card">
+      <div class="student-card-top">
+        <span class="avatar">${initials(s.name)}</span>
+        <div class="student-card-info">
+          <div class="student-card-name">${s.name}</div>
+          <div class="student-card-sub">${fmtMoney(s.price)} ders ücreti</div>
         </div>
-      </td>
-      <td><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'gizle' : 'geçmiş ('+hist.length+')'}</span></td>
-    </tr>`;
+        ${badge}
+      </div>
+      ${last? `<div class="student-card-last">Son ödeme: ${fmtDate(last.date)} · ${fmtMoney(last.amount)}</div>` : ''}
+      <div class="actioncell" style="margin-top:10px;">
+        <button class="paidbtn" onclick="markPaidToday('${s.id}')">✓ Ücret Ödendi</button>
+        <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
+        <button class="editbtn" onclick="openInstallmentModal('${s.id}')">🗓️ Taksit Planla</button>
+        <button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button>
+      </div>
+      <div style="margin-top:10px;"><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'geçmişi gizle' : 'geçmiş ('+hist.length+')'}</span></div>`;
     if(expanded[s.id]){
-      h += `<tr><td colspan="6" style="border-bottom:1px solid var(--line);"><div class="histbox">`;
+      h += `<div class="histbox" style="margin-top:8px;">`;
       if(hist.length===0){ h += `<div class="empty">Henüz ödeme kaydı yok.</div>`; }
       else{
         hist.forEach(p=>{
@@ -359,7 +354,7 @@ function render(){
       }
       const sInst = studentInstallments(s.id);
       if(sInst.length){
-        h += `<div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--paper-line); font-weight:700; font-size:12px;">Taksitler</div>`;
+        h += `<div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--line); font-weight:800; font-size:12px;">Taksitler</div>`;
         sInst.forEach(i=>{
           const status = installmentStatus(i);
           h += `<div class="hrow"><span>${fmtDate(i.dueDate)}${i.note? ' · '+i.note : ''}</span><span>${fmtMoney(i.amount)}</span><span style="display:flex;gap:8px;align-items:center;">
@@ -370,11 +365,12 @@ function render(){
           </span></div>`;
         });
       }
-      h += `</div></td></tr>`;
+      h += `</div>`;
     }
+    h += `</div>`;
   });
 
-  h += `</tbody></table></div>
+  h += `</div>
   <footer class="note">"Ücret Ödendi" butonuna bastığında bugünün tarihi ve o öğrenci için tanımlı ücret otomatik kaydedilir. Fiyat sonradan değişse bile geçmiş ödemeler o günkü tutarıyla kalır. Veriler bu cihaz/tarayıcıda saklanır — düzenli olarak "Yedekle" ile dosyaya kaydetmeniz önerilir.</footer>`;
 
   app.innerHTML = h;
