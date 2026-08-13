@@ -74,7 +74,7 @@
   .row-item .sub{color:var(--muted); font-size:11px; font-weight:600;}
 
   .toolbar{display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; align-items:center;}
-  .toolbar input[type=text]{flex:1; min-width:160px; padding:12px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-size:14px;}
+  .toolbar input[type=text]{flex:1; min-width:160px; padding:12px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-size:16px;}
   .toolbar input::placeholder{color:var(--muted);}
   button.primary{background:var(--black); color:#fff; border:none; border-radius:999px; padding:12px 18px; font-weight:800; font-size:13px; cursor:pointer; font-family:var(--sans); white-space:nowrap; text-transform:uppercase; letter-spacing:0.3px;}
   button.secondary{background:#fff; color:var(--text); border:1.5px solid var(--line); border-radius:999px; padding:10px 15px; font-weight:800; font-size:12px; cursor:pointer; font-family:var(--sans);}
@@ -133,7 +133,7 @@
   .modal h3{margin:0 0 14px; font-size:17px; font-weight:900; color:var(--text);}
   .field{margin-bottom:12px;}
   .field label{display:block; font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;}
-  .field input{width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:14px;}
+  .field input{width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;}
   .modal-actions{display:flex; gap:8px; margin-top:16px; position:sticky; bottom:-22px; background:var(--surface); padding:10px 0 4px; margin-bottom:-22px;}
   .modal-actions button{flex:1;}
   footer.note{text-align:center; color:var(--muted); font-size:11px; margin-top:24px; font-weight:600;}
@@ -310,7 +310,7 @@ function render(){
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
       <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length} kayıt)</span></h2>
-      <span class="hist-toggle">${allHistoryOpen? 'gizle' : 'göster'}</span>
+      <span class="hist-toggle">${allHistoryOpen? 'Gizle' : 'Göster'}</span>
     </div>
     ${allHistoryOpen ? renderMonthlyBreakdown() : ''}
   </section>
@@ -345,15 +345,15 @@ function render(){
         <button class="paidbtn" onclick="markPaidToday('${s.id}')">✓ Ücret Ödendi</button>
         <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
         <button class="editbtn" onclick="openInstallmentModal('${s.id}')">🗓️ Taksit Planla</button>
-        <button class="del" onclick="deleteStudent('${s.id}')">öğrenciyi sil</button>
+        <button class="del" onclick="deleteStudent('${s.id}')">Öğrenciyi Sil</button>
       </div>
-      <div style="margin-top:10px;"><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'geçmişi gizle' : 'geçmiş ('+hist.length+')'}</span></div>`;
+      <div style="margin-top:10px;"><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'Geçmişi Gizle' : 'Geçmiş ('+hist.length+')'}</span></div>`;
     if(expanded[s.id]){
       h += `<div class="histbox" style="margin-top:8px;">`;
       if(hist.length===0){ h += `<div class="empty">Henüz ödeme kaydı yok.</div>`; }
       else{
         hist.forEach(p=>{
-          h += `<div class="hrow"><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span><span style="display:flex;gap:8px;"><button class="linklike" onclick="openEditPaymentModal('${p.id}')">düzenle</button><button class="del" onclick="deletePayment('${p.id}')">sil</button></span></div>`;
+          h += `<div class="hrow"><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span><span style="display:flex;gap:8px;"><button class="linklike" onclick="openEditPaymentModal('${p.id}')">Düzenle</button><button class="del" onclick="deletePayment('${p.id}')">Sil</button></span></div>`;
         });
       }
       const sInst = studentInstallments(s.id);
@@ -363,9 +363,9 @@ function render(){
           const status = installmentStatus(i);
           h += `<div class="hrow"><span>${fmtDate(i.dueDate)}${i.note? ' · '+i.note : ''}</span><span>${fmtMoney(i.amount)}</span><span style="display:flex;gap:8px;align-items:center;">
             <span class="badge ${installmentStatusClass(status)}" style="font-size:10px;">${installmentStatusLabel(status)}</span>
-            ${!i.paid? `<button class="linklike" onclick="markInstallmentPaid('${i.id}')">ödendi işaretle</button>`:''}
-            <button class="linklike" onclick="openEditInstallmentModal('${i.id}')">düzenle</button>
-            <button class="del" onclick="deleteInstallment('${i.id}')">sil</button>
+            ${!i.paid? `<button class="linklike" onclick="markInstallmentPaid('${i.id}')">Ödendi İşaretle</button>`:''}
+            <button class="linklike" onclick="openEditInstallmentModal('${i.id}')">Düzenle</button>
+            <button class="del" onclick="deleteInstallment('${i.id}')">Sil</button>
           </span></div>`;
         });
       }
@@ -475,7 +475,7 @@ function renderInstallmentList(list){
       <div><div class="name">${memberNameOf(sid)}</div><div class="sub">${items.length} taksit · Toplam ${fmtMoney(total)}</div></div>
       <div style="display:flex;gap:8px;align-items:center;">
         <span class="badge ${installmentStatusClass(worst)}">${installmentStatusLabel(worst)}</span>
-        <span class="hist-toggle">${isOpen? 'gizle' : 'göster'}</span>
+        <span class="hist-toggle">${isOpen? 'Gizle' : 'Göster'}</span>
       </div>
     </div>`;
     if(isOpen){
@@ -487,9 +487,9 @@ function renderInstallmentList(list){
           <span>${fmtMoney(i.amount)}</span>
           <span style="display:flex;gap:8px;align-items:center;">
             <span class="badge ${installmentStatusClass(status)}" style="font-size:10px;">${installmentStatusLabel(status)}</span>
-            <button class="linklike" onclick="event.stopPropagation(); markInstallmentPaid('${i.id}')">ödendi</button>
-            <button class="linklike" onclick="event.stopPropagation(); openEditInstallmentModal('${i.id}')">düzenle</button>
-            <button class="del" onclick="event.stopPropagation(); deleteInstallment('${i.id}')">sil</button>
+            <button class="linklike" onclick="event.stopPropagation(); markInstallmentPaid('${i.id}')">Ödendi</button>
+            <button class="linklike" onclick="event.stopPropagation(); openEditInstallmentModal('${i.id}')">Düzenle</button>
+            <button class="del" onclick="event.stopPropagation(); deleteInstallment('${i.id}')">Sil</button>
           </span>
         </div>`;
       });
@@ -514,11 +514,25 @@ function deletePayment(pid){
   });
 }
 function deleteStudent(sid){
-  askConfirm('Bu öğrenci ve tüm ödeme kayıtları silinecek.', ()=>{
+  const pending = installments.filter(i=>i.studentId===sid && !i.paid);
+  let message = 'Bu öğrenci ve tüm ödeme kayıtları silinecek.';
+  if(pending.length){
+    const byMonth = {};
+    pending.forEach(i=>{
+      const [y,m] = i.dueDate.split('-').map(Number);
+      const key = `${MONTH_SHORT[m-1]} ${y}`;
+      byMonth[key] = (byMonth[key]||0) + Number(i.amount||0);
+    });
+    const lines = Object.keys(byMonth).map(k=> `${k}: ${fmtMoney(byMonth[k])}`).join(', ');
+    message = `Bu öğrencinin henüz ödenmemiş taksitleri var — ${lines}. Öğrenci silinirse bu taksitler de tamamen kaldırılacak. Yine de silmek istiyor musunuz?`;
+  }
+  askConfirm(message, ()=>{
     students = students.filter(s=>s.id!==sid);
     payments = payments.filter(p=>p.studentId!==sid);
+    installments = installments.filter(i=>i.studentId!==sid);
     saveList('coach_students_v3', students);
     saveList('coach_payments_v3', payments);
+    saveList('coach_installments_v1', installments);
     render();
   });
 }
@@ -655,10 +669,10 @@ function submitEditPayment(){
 }
 
 /* ---------- installments (taksitler) ---------- */
-let instRows = []; // [{id, amount, date, note}]
+let instRows = []; // [{id, amount, date}]
 function openInstallmentModal(sid){
   installmentModalStudentId = sid;
-  instRows = [{id:uid(), amount:'', date:todayStr(), note:''}];
+  instRows = [];
   render();
 }
 function closeInstallmentModal(){ installmentModalStudentId = null; instRows=[]; const ov=document.getElementById('instOverlay'); if(ov) ov.remove(); }
@@ -666,10 +680,8 @@ function syncInstRowsFromDOM(){
   instRows.forEach(row=>{
     const a = document.getElementById('row_amount_'+row.id);
     const d = document.getElementById('row_date_'+row.id);
-    const n = document.getElementById('row_note_'+row.id);
     if(a) row.amount = a.value;
     if(d) row.date = d.value;
-    if(n) row.note = n.value;
   });
   const uf = document.getElementById('i_upfront');
   if(uf) instRows._upfront = uf.value;
@@ -687,7 +699,7 @@ function addInstallmentRow(){
     const day = String(d.getDate()).padStart(2,'0');
     suggestedDate = `${yy}-${mm}-${day}`;
   }
-  instRows.push({id:uid(), amount:'', date:suggestedDate, note:''});
+  instRows.push({id:uid(), amount:'', date:suggestedDate});
   render();
 }
 function removeInstallmentRow(rid){
@@ -704,24 +716,20 @@ function renderInstallmentModal(){
   const upfrontVal = instRows._upfront || '';
   let rowsHtml = '';
   instRows.forEach((row,idx)=>{
-    rowsHtml += `<div style="border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:8px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-        <span style="font-size:11px; color:var(--muted); font-family:var(--mono); text-transform:uppercase;">Taksit ${idx+1}</span>
-        ${instRows.length>1 ? `<button class="del" onclick="removeInstallmentRow('${row.id}')">satırı sil</button>` : ''}
-      </div>
-      <div class="field" style="margin-bottom:8px;"><label>Tutar (TL)</label><input type="number" min="0" id="row_amount_${row.id}" value="${row.amount}" placeholder="Örn: 10000"></div>
-      <div class="field" style="margin-bottom:8px;"><label>Vade Tarihi</label><input type="date" id="row_date_${row.id}" value="${row.date}"></div>
-      <div class="field" style="margin-bottom:0;"><label>Not (opsiyonel)</label><input type="text" id="row_note_${row.id}" value="${row.note}" placeholder="Örn: 2. taksit"></div>
+    rowsHtml += `<div style="display:flex; align-items:center; gap:6px; padding:7px 0; ${idx>0 ? 'border-top:1px solid var(--line);' : ''}">
+      <span style="flex:0 0 auto; font-size:11px; font-weight:800; color:var(--muted); font-family:var(--mono); white-space:nowrap;">${idx+1}. Taksit</span>
+      <input type="number" min="0" id="row_amount_${row.id}" value="${row.amount}" placeholder="Tutar" style="flex:1 1 0; min-width:0; padding:10px 8px; border-radius:10px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;">
+      <input type="date" id="row_date_${row.id}" value="${row.date}" style="flex:1 1 0; min-width:0; padding:10px 6px; border-radius:10px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;">
+      <button type="button" onclick="removeInstallmentRow('${row.id}')" aria-label="Taksiti Sil" style="flex:0 0 auto; width:26px; height:26px; border-radius:8px; border:1px solid var(--line); background:var(--surface2); color:var(--red); font-size:13px; line-height:1; cursor:pointer;">✕</button>
     </div>`;
   });
   div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
     <h3>Taksitli Paket — ${s.name}</h3>
     <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Örn: 30 derslik paket — bir kısmı bugün alınıyor (peşinat), kalanı istediğin sayıda taksitle, her biri ayrı tarih ve tutarla.</p>
-    <div class="field"><label>Peşinat / Şimdi Alınan Tutar (varsa, TL)</label><input type="number" min="0" id="i_upfront" value="${upfrontVal}" placeholder="Örn: 10000 (yoksa boş bırakın)"></div>
-    <p style="font-size:11px;color:var(--muted);margin:-6px 0 12px;">Girilirse bugünün tarihiyle hemen ödeme olarak kaydedilir.</p>
-    <div style="border-top:1px dashed var(--line); margin:0 0 12px;"></div>
+    <div class="field" style="margin-bottom:8px;"><label>Peşinat / Şimdi Alınan Tutar (varsa, TL)</label><input type="number" min="0" id="i_upfront" value="${upfrontVal}" placeholder="Örn: 10000 (yoksa boş bırakın)"></div>
+    <p style="font-size:11px;color:var(--muted);margin:-4px 0 10px;">Girilirse bugünün tarihiyle hemen ödeme olarak kaydedilir.</p>
     ${rowsHtml}
-    <button class="secondary" style="width:100%; margin-bottom:14px;" onclick="addInstallmentRow()">+ Taksit Ekle</button>
+    <button class="secondary" style="width:100%; margin-top:${instRows.length?'10px':'0'}; margin-bottom:14px;" onclick="addInstallmentRow()">+ Taksit Ekle</button>
     <div class="modal-actions">
       <button class="secondary" onclick="closeInstallmentModal()">Vazgeç</button>
       <button class="primary" onclick="submitInstallment()">Kaydet</button>
@@ -741,8 +749,10 @@ function submitInstallment(){
     payments.push({id:uid(), studentId:sid, amount:upfront, date:todayStr(), createdAt:new Date().toISOString(), note:'Peşinat'});
     saveList('coach_payments_v3', payments);
   }
-  validRows.forEach(r=>{
-    installments.push({id:uid(), studentId:sid, amount:Number(r.amount), dueDate:r.date, paid:false, paidDate:null, note:(r.note||'').trim(), createdAt:new Date().toISOString()});
+  instRows.forEach((r,idx)=>{
+    if(Number(r.amount)>0){
+      installments.push({id:uid(), studentId:sid, amount:Number(r.amount), dueDate:r.date, paid:false, paidDate:null, note:`${idx+1}. Taksit`, createdAt:new Date().toISOString()});
+    }
   });
   if(validRows.length){ saveList('coach_installments_v1', installments); }
   closeInstallmentModal();
