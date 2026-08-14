@@ -271,7 +271,9 @@ function globalStats(){
   const overdueInstallments = pending.filter(i=>installmentStatus(i)==='overdue');
   const upcomingInstallments = pending.filter(i=>installmentStatus(i)==='upcoming');
   const pendingInstallmentTotal = pending.reduce((s,i)=>s+Number(i.amount||0),0);
-  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount, pending, overdueInstallments, upcomingInstallments, pendingInstallmentTotal};
+  const debtors = students.filter(s=>s.debt);
+  const debtorsTotal = debtors.reduce((s,st)=>s+Number(st.debt||0),0);
+  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount, pending, overdueInstallments, upcomingInstallments, pendingInstallmentTotal, debtors, debtorsTotal};
 }
 
 function render(){
@@ -308,6 +310,11 @@ function render(){
     <h2 style="margin-bottom:10px;">⏰ Taksit Takibi <span class="count">(${g.pending.length} bekleyen · ${fmtMoney(g.pendingInstallmentTotal)})</span></h2>
     ${renderInstallmentList(g.pending)}
   </section>` : ''}
+  ${g.debtors.length ? `
+  <section class="panel" style="border-color:rgba(227,34,39,0.35);">
+    <h2 style="margin-bottom:10px;">💳 Kredili Öğrenciler <span class="count">(${g.debtors.length} kişi · ${fmtMoney(g.debtorsTotal)})</span></h2>
+    ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}</span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
+  </section>` : ''}
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
       <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length} kayıt)</span></h2>
@@ -336,7 +343,7 @@ function render(){
       <div class="student-card-top">
         <span class="avatar">${initials(s.name)}</span>
         <div class="student-card-info">
-          <div class="student-card-name">${s.name}${s.debt ? ` <span style="color:var(--red); font-size:12px; font-weight:900; letter-spacing:0; text-transform:none;">-${fmtMoney(s.debt)}</span>` : ''}</div>
+          <div class="student-card-name">${s.name}</div>
           <div class="student-card-sub">${fmtMoney(s.price)} ders ücreti</div>
         </div>
         ${badge}
