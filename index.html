@@ -179,11 +179,14 @@ let editingPaymentId = null;
 let installmentModalStudentId = null;
 let confirmState = null; // {message, action}
 let alertState = null; // string
+let invoiceContacts = []; // {id, studentId, name, tcNo, address, email, phone, updatedAt}
+let invoiceOpen = false;
 
 function loadAll(){
   students = getList('coach_students_v3');
   payments = getList('coach_payments_v3');
   installments = getList('coach_installments_v1');
+  invoiceContacts = getList('coach_invoice_contacts_v1');
   ready = true;
   render();
 }
@@ -286,7 +289,7 @@ function render(){
     <div style="display:flex; gap:8px;">
       <button class="iconbtn iconbtn-green" onclick="exportBackup()" title="Kaydet" aria-label="Yedekle (kaydet)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg></button>
       <button class="iconbtn iconbtn-red" onclick="document.getElementById('importFile').click()" title="Kaydı Aktar" aria-label="Yedeği geri yükle"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg></button>
-      <button class="iconbtn" onclick="alert('Fatura modülü yakında eklenecek.')" title="Fatura" aria-label="Fatura"><svg viewBox="0 0 100 100" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+      <button class="iconbtn" onclick="openInvoiceModal()" title="Fatura" aria-label="Fatura"><svg viewBox="0 0 100 100" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
 <text x="50" y="15" text-anchor="middle" font-family="var(--sans)" font-weight="800" font-size="22.73" fill="#E32227" letter-spacing="1.82">FATURA</text>
 <g transform="translate(13,28) scale(0.72)"><path d="M 20.30 1.59 L 13.92 9.46 L 10.10 22.85 L 10.10 30.07 L 13.71 59.09 L 12.43 75.35 L 11.16 79.06 L 2.13 76.62 L 0.43 77.15 L 0.11 81.83 L 2.02 87.14 L 4.68 90.44 L 9.46 92.77 L 72.58 92.77 L 77.26 91.07 L 82.04 86.61 L 85.55 81.30 L 88.20 74.50 L 89.69 66.21 L 89.90 55.15 L 84.80 18.70 L 97.87 18.07 L 98.09 16.47 L 95.43 12.75 L 98.51 12.11 L 99.79 10.63 L 98.09 3.83 L 95.64 1.28 L 92.03 0.00 L 24.44 0.00 Z M 3.08 80.66 L 3.40 80.45 L 5.74 81.51 L 8.93 82.15 L 60.79 82.04 L 61.21 82.36 L 62.06 85.76 L 64.19 89.59 L 10.31 89.80 L 7.97 88.95 L 5.21 86.40 L 3.72 83.63 Z M 94.37 4.25 L 95.43 5.42 L 95.96 6.27 L 95.96 6.48 L 96.49 7.55 L 96.81 9.25 L 96.60 9.56 L 94.90 9.56 L 94.79 9.67 L 93.73 9.78 L 92.77 10.20 L 92.45 10.52 L 92.24 10.95 L 92.24 12.43 L 93.30 15.20 L 92.99 15.41 L 85.23 15.41 L 84.80 15.09 L 84.80 14.77 L 84.91 14.67 L 84.91 13.82 L 85.12 12.96 L 85.12 12.11 L 85.23 12.01 L 85.33 10.84 L 85.87 8.71 L 86.08 8.40 L 86.08 7.97 L 87.04 5.84 L 87.78 4.78 L 88.95 3.72 L 90.01 3.19 L 90.54 3.19 L 90.65 3.08 L 92.35 3.19 L 93.62 3.72 Z M 22.32 3.93 L 24.97 3.08 L 84.91 3.29 L 82.15 10.95 L 81.72 20.30 L 85.87 46.33 L 86.72 65.46 L 85.65 72.26 L 83.21 79.28 L 80.13 84.17 L 75.66 88.42 L 71.94 89.80 L 68.33 88.95 L 64.82 84.70 L 63.87 79.91 L 61.96 79.06 L 14.56 78.96 L 16.37 70.46 L 16.68 60.15 L 13.28 30.71 L 13.28 22.21 L 16.15 11.90 L 19.66 6.27 Z" fill="#161616" fill-rule="evenodd"/><path d="M 24.76 70.35 L 25.93 71.94 L 73.65 72.05 L 75.45 70.78 L 73.65 68.97 L 26.46 68.97 Z" fill="#161616"/><path d="M 24.87 60.26 L 25.61 62.06 L 74.50 62.06 L 75.45 60.89 L 73.86 59.09 L 26.46 59.09 Z" fill="#161616"/><path d="M 24.87 50.48 L 25.93 52.39 L 75.45 51.33 L 74.28 49.42 L 26.35 49.31 Z" fill="#161616"/><path d="M 24.87 41.76 L 74.50 42.61 L 75.45 40.91 L 74.39 39.64 L 26.14 39.64 Z" fill="#161616"/><path d="M 24.87 31.03 L 26.04 33.05 L 74.28 32.94 L 75.35 31.77 L 74.18 29.97 Z" fill="#161616"/><path d="M 24.87 20.51 L 26.04 22.10 L 75.13 21.47 L 73.22 19.23 L 26.14 19.02 Z" fill="#161616"/></g>
 </svg></button>
@@ -394,6 +397,7 @@ function render(){
   if(editingInstallmentId) renderEditInstallmentModal();
   if(textBackupOpen) renderTextBackupModal();
   if(textImportOpen) renderTextImportModal();
+  if(invoiceOpen) renderInvoiceModal();
   if(confirmState) renderConfirmModal();
   if(alertState) renderAlertModal();
 }
@@ -588,6 +592,143 @@ function renderAlertModal(){
   div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
     <p style="font-size:13px;margin:0 0 14px;">${alertState}</p>
     <div class="modal-actions"><button class="primary" onclick="closeAlert()">Tamam</button></div>
+  </div>`;
+  document.body.appendChild(div);
+}
+
+/* ---------- fatura (bireysel e-arşiv bilgi ekranı) ---------- */
+let invoiceDraft = null; // persists form values across re-renders (e.g. when an alert/confirm modal also renders)
+function blankInvoiceDraft(){
+  return { studentId:'', name:'', tcNo:'', address:'', email:'', phone:'', desc:'', amount:'', date: todayStr() };
+}
+function openInvoiceModal(){
+  invoiceOpen = true;
+  invoiceDraft = blankInvoiceDraft();
+  render();
+}
+function closeInvoiceModal(){
+  invoiceOpen = false;
+  invoiceDraft = null;
+  const ov=document.getElementById('invoiceOverlay'); if(ov) ov.remove();
+}
+function invoiceContactForStudent(sid){
+  return invoiceContacts.find(c=>c.studentId && c.studentId===sid);
+}
+function syncInvoiceDraftFromDOM(){
+  if(!invoiceDraft) invoiceDraft = blankInvoiceDraft();
+  const g = (id)=>{ const el=document.getElementById(id); return el ? el.value : undefined; };
+  const vals = {
+    studentId: g('inv_student'), name: g('inv_name'), tcNo: g('inv_tc'), address: g('inv_address'),
+    email: g('inv_email'), phone: g('inv_phone'), desc: g('inv_desc'), amount: g('inv_amount'), date: g('inv_date')
+  };
+  Object.keys(vals).forEach(k=>{ if(vals[k]!==undefined) invoiceDraft[k]=vals[k]; });
+  return invoiceDraft;
+}
+function onInvoiceStudentChange(sid){
+  const f = syncInvoiceDraftFromDOM();
+  const s = students.find(x=>x.id===sid);
+  const c = sid ? invoiceContactForStudent(sid) : null;
+  f.studentId = sid;
+  f.name = c ? c.name : (s ? s.name : '');
+  f.tcNo = c ? (c.tcNo||'') : '';
+  f.address = c ? (c.address||'') : '';
+  f.email = c ? (c.email||'') : '';
+  f.phone = c ? (c.phone||'') : '';
+  if(s && !f.amount) f.amount = s.price;
+  renderInvoiceModal();
+}
+function selectInvoiceContact(cid){
+  const c = invoiceContacts.find(x=>x.id===cid);
+  if(!c) return;
+  const f = syncInvoiceDraftFromDOM();
+  f.studentId = c.studentId || '';
+  f.name = c.name || '';
+  f.tcNo = c.tcNo || '';
+  f.address = c.address || '';
+  f.email = c.email || '';
+  f.phone = c.phone || '';
+  const s = c.studentId ? students.find(x=>x.id===c.studentId) : null;
+  if(s && !f.amount) f.amount = s.price;
+  renderInvoiceModal();
+}
+function deleteInvoiceContact(cid){
+  askConfirm('Bu kayıtlı kişi silinsin mi?', ()=>{
+    invoiceContacts = invoiceContacts.filter(c=>c.id!==cid);
+    saveList('coach_invoice_contacts_v1', invoiceContacts);
+    render();
+  });
+}
+function submitInvoiceContact(){
+  const f = syncInvoiceDraftFromDOM();
+  if(!f.name || !f.name.trim()){ showAlert('Ad Soyad girin.'); return; }
+  if(!f.tcNo || !String(f.tcNo).trim()){ showAlert('TC Kimlik No girin.'); return; }
+  if(!f.address || !f.address.trim()){ showAlert('Adres girin.'); return; }
+  const sid = f.studentId || '';
+  let existing = sid ? invoiceContactForStudent(sid) : invoiceContacts.find(c=>!c.studentId && c.tcNo===f.tcNo);
+  if(existing){
+    existing.name = f.name.trim();
+    existing.tcNo = String(f.tcNo).trim();
+    existing.address = f.address.trim();
+    existing.email = (f.email||'').trim();
+    existing.phone = (f.phone||'').trim();
+    existing.updatedAt = new Date().toISOString();
+  } else {
+    invoiceContacts.push({
+      id: uid(), studentId: sid || null,
+      name: f.name.trim(), tcNo: String(f.tcNo).trim(), address: f.address.trim(),
+      email: (f.email||'').trim(), phone: (f.phone||'').trim(),
+      updatedAt: new Date().toISOString()
+    });
+  }
+  saveList('coach_invoice_contacts_v1', invoiceContacts);
+  showAlert('Kişi kaydedildi. Bu bilgilerle bir dahaki sefere tek dokunuşla fatura hazırlayabilirsiniz.');
+}
+function renderInvoiceModal(){
+  const existing = document.getElementById('invoiceOverlay'); if(existing) existing.remove();
+  if(!invoiceOpen) return;
+  const f = invoiceDraft || blankInvoiceDraft();
+  const div = document.createElement('div'); div.id='invoiceOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeInvoiceModal(); };
+
+  const contactsHtml = invoiceContacts.length ? invoiceContacts.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||'','tr')).map(c=>`
+    <div class="row-item" style="cursor:pointer;" onclick="selectInvoiceContact('${c.id}')">
+      <span class="name">${c.name}${c.tcNo? ` <span class="sub" style="font-weight:600;">· TC ${c.tcNo}</span>` : ''}</span>
+      <span style="display:flex; gap:8px; align-items:center;">
+        <span class="hist-toggle" onclick="event.stopPropagation(); selectInvoiceContact('${c.id}')">Seç</span>
+        <button class="del" onclick="event.stopPropagation(); deleteInvoiceContact('${c.id}')">Sil</button>
+      </span>
+    </div>`).join('') : `<div class="histbox"><div class="empty">Henüz kayıtlı kişi yok. Formu doldurup "Kişiyi Kaydet" ile ilk kaydınızı oluşturun.</div></div>`;
+
+  const studentOptions = `<option value="">Bireysel Fatura</option>` +
+    students.slice().sort((a,b)=>a.name.localeCompare(b.name,'tr')).map(s=>`<option value="${s.id}" ${f.studentId===s.id?'selected':''}>${s.name}</option>`).join('');
+
+  div.innerHTML = `<div class="modal" style="max-width:480px;" onclick="event.stopPropagation()">
+    <h3>Fatura</h3>
+
+    <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; font-weight:800; margin-bottom:8px;">Kayıtlı Kişiler</div>
+    <div class="tablewrap" style="margin-bottom:18px; max-height:160px; overflow-y:auto;">
+      <div style="padding:2px 12px;">${contactsHtml}</div>
+    </div>
+
+    <div style="font-size:17px; font-weight:900; color:var(--text); margin-bottom:10px;">Fatura Bilgileri</div>
+    <div class="field"><label>Öğrenci</label>
+      <select id="inv_student" onchange="onInvoiceStudentChange(this.value)" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;">
+        ${studentOptions}
+      </select>
+    </div>
+    <div class="field"><label>Ad Soyad</label><input type="text" id="inv_name" value="${f.name||''}"></div>
+    <div class="field"><label>TC Kimlik No</label><input type="text" inputmode="numeric" maxlength="11" id="inv_tc" value="${f.tcNo||''}"></div>
+    <div class="field"><label>Adres</label><input type="text" id="inv_address" value="${f.address||''}"></div>
+    <div class="field"><label>E-posta</label><input type="text" id="inv_email" value="${f.email||''}"></div>
+    <div class="field"><label>Telefon</label><input type="text" id="inv_phone" value="${f.phone||''}"></div>
+    <div class="field"><label>Ders Paketi Açıklaması</label><input type="text" id="inv_desc" value="${f.desc||''}"></div>
+    <div class="field"><label>Tutar (₺)</label><input type="number" min="0" id="inv_amount" value="${f.amount||''}"></div>
+    <div class="field"><label>Fatura Tarihi</label><input type="date" id="inv_date" value="${f.date||todayStr()}"></div>
+
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeInvoiceModal()">Kapat</button>
+      <button class="primary" onclick="submitInvoiceContact()">Kişiyi Kaydet</button>
+    </div>
   </div>`;
   document.body.appendChild(div);
 }
@@ -832,7 +973,7 @@ function submitEditInstallment(){
 /* ---------- backup / restore ---------- */
 function exportBackup(){
   try{
-    const data = {students, payments, installments, exportedAt:new Date().toISOString()};
+    const data = {students, payments, installments, invoiceContacts, exportedAt:new Date().toISOString()};
     const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -852,7 +993,7 @@ function openTextBackupModal(){ textBackupOpen = true; render(); }
 function closeTextBackupModal(){ textBackupOpen = false; const ov=document.getElementById('textBackupOverlay'); if(ov) ov.remove(); }
 function renderTextBackupModal(){
   const existing = document.getElementById('textBackupOverlay'); if(existing) existing.remove();
-  const data = {students, payments, installments, exportedAt:new Date().toISOString()};
+  const data = {students, payments, installments, invoiceContacts, exportedAt:new Date().toISOString()};
   const json = JSON.stringify(data);
   const div = document.createElement('div'); div.id='textBackupOverlay'; div.className='overlay';
   div.onclick=(e)=>{ if(e.target===div) closeTextBackupModal(); };
@@ -903,9 +1044,11 @@ function submitTextImport(){
     closeTextImportModal();
     askConfirm('Mevcut liste, yapıştırılan yedekle değiştirilecek.', ()=>{
       students = data.students; payments = data.payments; installments = Array.isArray(data.installments) ? data.installments : [];
+      invoiceContacts = Array.isArray(data.invoiceContacts) ? data.invoiceContacts : [];
       saveList('coach_students_v3', students);
       saveList('coach_payments_v3', payments);
       saveList('coach_installments_v1', installments);
+      saveList('coach_invoice_contacts_v1', invoiceContacts);
       render();
     });
   }catch(err){
@@ -922,9 +1065,11 @@ function handleImportFile(evt){
       if(!Array.isArray(data.students) || !Array.isArray(data.payments)) throw new Error('geçersiz format');
       askConfirm('Mevcut liste, yedekteki verilerle değiştirilecek.', ()=>{
         students = data.students; payments = data.payments; installments = Array.isArray(data.installments) ? data.installments : [];
+        invoiceContacts = Array.isArray(data.invoiceContacts) ? data.invoiceContacts : [];
         saveList('coach_students_v3', students);
         saveList('coach_payments_v3', payments);
         saveList('coach_installments_v1', installments);
+        saveList('coach_invoice_contacts_v1', invoiceContacts);
         render();
       });
     }catch(err){
