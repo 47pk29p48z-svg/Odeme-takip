@@ -313,7 +313,7 @@ function render(){
   ${g.debtors.length ? `
   <section class="panel" style="border-color:rgba(227,34,39,0.35);">
     <h2 style="margin-bottom:10px;">💳 Kredili Öğrenciler <span class="count">(${g.debtors.length} kişi · ${fmtMoney(g.debtorsTotal)})</span></h2>
-    ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}</span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
+    ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}${s.debtDate? ` <span class="sub" style="font-weight:600;">· ${fmtDate(s.debtDate)}</span>` : ''}</span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
   </section>` : ''}
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
@@ -513,13 +513,14 @@ function markPaidToday(sid){
   if(!s) return;
   payments.push({id:uid(), studentId:sid, amount:s.price, date:todayStr(), createdAt:new Date().toISOString()});
   saveList('coach_payments_v3', payments);
-  if(s.debt){ s.debt = null; saveList('coach_students_v3', students); }
+  if(s.debt){ s.debt = null; s.debtDate = null; saveList('coach_students_v3', students); }
   render();
 }
 function addCredit(sid){
   const s = students.find(x=>x.id===sid);
   if(!s) return;
-  s.debt = s.debt ? null : Number(s.price);
+  if(s.debt){ s.debt = null; s.debtDate = null; }
+  else { s.debt = Number(s.price); s.debtDate = todayStr(); }
   saveList('coach_students_v3', students);
   render();
 }
