@@ -178,6 +178,7 @@ let addModalOpen = false;
 let editingStudentId = null;
 let editingPaymentId = null;
 let installmentModalStudentId = null;
+let creditModalStudentId = null;
 let confirmState = null; // {message, action}
 let alertState = null; // string
 
@@ -314,7 +315,7 @@ function render(){
   ${g.debtors.length ? `
   <section class="panel" style="border-color:rgba(227,34,39,0.35);">
     <h2 style="margin-bottom:10px;">💳 Kredili Öğrenciler <span class="count">(${g.debtors.length} kişi · ${fmtMoney(g.debtorsTotal)})</span></h2>
-    ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}${s.debtDate? ` <span class="sub" style="font-weight:600;">· ${fmtDate(s.debtDate)}</span>` : ''} <button class="paidsmall" onclick="addCredit('${s.id}')">✓ Ödendi</button></span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
+    ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}${s.debtDate? ` <span class="sub" style="font-weight:600;">· ${fmtDate(s.debtDate)}</span>` : ''} <button class="paidsmall" onclick="clearDebt('${s.id}')">✓ Ödendi</button></span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
   </section>` : ''}
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
@@ -355,7 +356,7 @@ function render(){
         <button class="editbtn" onclick="openEditModal('${s.id}')">Düzenle</button>
         <button class="editbtn" onclick="openInstallmentModal('${s.id}')">🗓️ Taksit Planla</button>
         <button class="del" onclick="deleteStudent('${s.id}')">Öğrenciyi Sil</button>
-        <button class="debtbtn" onclick="addCredit('${s.id}')">Kredi Tanımla</button>
+        <button class="debtbtn" onclick="openCreditModal('${s.id}')">Kredi Tanımla</button>
       </div>
       <div style="margin-top:10px;"><span class="hist-toggle" onclick="toggleHist('${s.id}')">${expanded[s.id] ? 'Geçmişi Gizle' : 'Geçmiş ('+hist.length+')'}</span></div>`;
     if(expanded[s.id]){
@@ -393,6 +394,7 @@ function render(){
   if(editingPaymentId) renderEditPaymentModal();
   if(installmentModalStudentId) renderInstallmentModal();
   if(editingInstallmentId) renderEditInstallmentModal();
+  if(creditModalStudentId) renderCreditModal();
   if(textBackupOpen) renderTextBackupModal();
   if(textImportOpen) renderTextImportModal();
   if(confirmState) renderConfirmModal();
@@ -517,11 +519,42 @@ function markPaidToday(sid){
   if(s.debt){ s.debt = null; s.debtDate = null; saveList('coach_students_v3', students); }
   render();
 }
-function addCredit(sid){
+function openCreditModal(sid){ creditModalStudentId = sid; render(); }
+function closeCreditModal(){ creditModalStudentId = null; const ov=document.getElementById('creditOverlay'); if(ov) ov.remove(); }
+function renderCreditModal(){
+  const s = students.find(x=>x.id===creditModalStudentId);
+  if(!s){ creditModalStudentId=null; return; }
+  const existing = document.getElementById('creditOverlay'); if(existing) existing.remove();
+  const div = document.createElement('div'); div.id='creditOverlay'; div.className='overlay';
+  div.onclick=(e)=>{ if(e.target===div) closeCreditModal(); };
+  div.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+    <h3>Kredi Tanımla — ${s.name}</h3>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Bu öğrenciye ne kadar eksi bakiye tanımlamak istersin?</p>
+    <div class="field" style="margin-bottom:0;"><label>Eksi Bakiye Tutarı (₺)</label><input type="number" min="0" id="credit_amount" value="${s.debt||''}" onkeydown="if(event.key==='Enter'){submitCredit()}"></div>
+    <div class="modal-actions">
+      <button class="secondary" onclick="closeCreditModal()">Vazgeç</button>
+      <button class="primary" onclick="submitCredit()">Kaydet</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
+function submitCredit(){
+  const sid = creditModalStudentId;
   const s = students.find(x=>x.id===sid);
   if(!s) return;
-  if(s.debt){ s.debt = null; s.debtDate = null; }
-  else { s.debt = Number(s.price); s.debtDate = todayStr(); }
+  const el = document.getElementById('credit_amount');
+  const amount = Number(el.value);
+  if(!amount || amount<=0){ showAlert('Lütfen geçerli bir eksi bakiye tutarı girin.'); return; }
+  s.debt = amount;
+  s.debtDate = todayStr();
+  saveList('coach_students_v3', students);
+  closeCreditModal();
+  render();
+}
+function clearDebt(sid){
+  const s = students.find(x=>x.id===sid);
+  if(!s) return;
+  s.debt = null; s.debtDate = null;
   saveList('coach_students_v3', students);
   render();
 }
