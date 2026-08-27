@@ -94,13 +94,18 @@
   }
   .iconbtn-green{color:var(--green);}
   .iconbtn-red{color:var(--red);}
-  .calendar-toggle-card{cursor:pointer; display:flex; flex-direction:column; justify-content:center;}
-  .cal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
-  .cal-cell{background:var(--surface2); border-radius:12px; padding:10px 8px; text-align:center;}
-  .cal-cell-active{background:var(--red); }
-  .cal-cell-active .cal-month, .cal-cell-active .cal-amount{color:#fff;}
-  .cal-month{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); margin-bottom:4px;}
-  .cal-amount{font-size:11.5px; font-weight:800; color:var(--text);}
+  .toggle-card{cursor:pointer; display:flex; flex-direction:column; justify-content:center;}
+  .expense-tabs{display:flex; gap:8px; margin-bottom:14px;}
+  .expense-row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 4px; border-bottom:1px solid var(--line);}
+  .expense-row:last-child{border-bottom:none;}
+  .expense-row label{font-size:13px; font-weight:800; color:var(--text);}
+  .expense-row input{width:130px; padding:9px 12px; border-radius:10px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px; text-align:right;}
+  .exp-cal-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;}
+  .exp-cal-cell{background:var(--surface2); border-radius:12px; padding:10px 6px; text-align:center;}
+  .exp-cal-cell-active{background:var(--red);}
+  .exp-cal-cell-active .exp-cal-month, .exp-cal-cell-active .exp-cal-amount{color:#fff;}
+  .exp-cal-month{font-size:10.5px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); margin-bottom:4px;}
+  .exp-cal-amount{font-size:10.5px; font-weight:800; color:var(--text);}
 
   .tablewrap{background:var(--surface); border-radius:16px; overflow-x:auto; box-shadow:0 1px 2px rgba(20,20,25,0.05), 0 1px 8px rgba(20,20,25,0.05);}
   table{width:100%; border-collapse:collapse;}
@@ -171,8 +176,21 @@ let ready = false;
 let expanded = {};
 let searchQ = '';
 let allHistoryOpen = false;
-let calendarOpen = false;
-let calendarYear = new Date().getFullYear();
+let expensesOpen = false;
+let expenseTab = 'aylik';
+let expenseCalendarOpen = false;
+let expenseCalendarYear = new Date().getFullYear();
+let expenses = []; // {id, month:'YYYY-MM', category, amount, createdAt}
+let otherIncomes = []; // {id, amount, date, source, createdAt} — Diğer Gelirler
+let otherPaymentsOpen = false;
+let otherHistOpen = false;
+const EXPENSE_CATEGORIES = [
+  {key:'kart', label:'Kredi Kartı'},
+  {key:'kira', label:'Kiralar'},
+  {key:'fatura', label:'Faturalar'},
+  {key:'vergi', label:'Vergiler'},
+  {key:'diger', label:'Diğer'}
+];
 let monthOpen = {};
 let addModalOpen = false;
 let editingStudentId = null;
@@ -186,6 +204,8 @@ function loadAll(){
   students = getList('coach_students_v3');
   payments = getList('coach_payments_v3');
   installments = getList('coach_installments_v1');
+  expenses = getList('coach_expenses_v1');
+  otherIncomes = getList('coach_other_income_v1');
   ready = true;
   render();
 }
@@ -253,7 +273,13 @@ function monthlyBreakdown(){
     const key = monthKey(p.date);
     if(!map[key]) map[key] = {total:0, items:[]};
     map[key].total += Number(p.amount||0);
-    map[key].items.push(p);
+    map[key].items.push({...p, kind:'student'});
+  });
+  otherIncomes.forEach(o=>{
+    const key = monthKey(o.date);
+    if(!map[key]) map[key] = {total:0, items:[]};
+    map[key].total += Number(o.amount||0);
+    map[key].items.push({...o, kind:'other'});
   });
   return Object.keys(map).sort().reverse().map(key=>({
     key,
@@ -266,6 +292,10 @@ function monthlyBreakdown(){
 function globalStats(){
   const totalAll = payments.reduce((s,p)=>s+Number(p.amount||0),0);
   const totalMonth = payments.filter(p=>isThisMonth(p.date)).reduce((s,p)=>s+Number(p.amount||0),0);
+  const otherTotal = otherIncomes.reduce((s,o)=>s+Number(o.amount||0),0);
+  const otherMonthTotal = otherIncomes.filter(o=>isThisMonth(o.date)).reduce((s,o)=>s+Number(o.amount||0),0);
+  const grandTotal = totalAll + otherTotal;
+  const grandMonthTotal = totalMonth + otherMonthTotal;
   const paidThisMonth = students.filter(s=> studentPayments(s.id).some(p=>isThisMonth(p.date))).length;
   const unpaidThisMonth = students.length - paidThisMonth;
   const monthsEarnedCount = new Set(payments.map(p=>monthKey(p.date))).size;
@@ -275,7 +305,7 @@ function globalStats(){
   const pendingInstallmentTotal = pending.reduce((s,i)=>s+Number(i.amount||0),0);
   const debtors = students.filter(s=>s.debt);
   const debtorsTotal = debtors.reduce((s,st)=>s+Number(st.debt||0),0);
-  return {totalAll, totalMonth, paidThisMonth, unpaidThisMonth, monthsEarnedCount, pending, overdueInstallments, upcomingInstallments, pendingInstallmentTotal, debtors, debtorsTotal};
+  return {totalAll, totalMonth, otherTotal, otherMonthTotal, grandTotal, grandMonthTotal, paidThisMonth, unpaidThisMonth, monthsEarnedCount, pending, overdueInstallments, upcomingInstallments, pendingInstallmentTotal, debtors, debtorsTotal};
 }
 
 function render(){
@@ -296,17 +326,18 @@ function render(){
   </header>
   <div class="warnbanner ${STORAGE_OK?'':'show'}">Bu tarayıcıda kalıcı depolama kullanılamıyor (gizli/özel sekme olabilir). Veriler yalnızca bu oturum boyunca tutulacak — sayfayı kapatmadan önce mutlaka yeşil disket ile kaydedin.</div>
   <div class="grid-stats">
-    <div class="stat"><div class="label">Toplam Öğrenci</div><div class="value">${students.length}</div></div>
     <div class="stat"><div class="label">Bu Ay Ödeyen</div><div class="value green">${g.paidThisMonth}</div></div>
     <div class="stat"><div class="label">Bu Ay Ödemeyen</div><div class="value ${g.unpaidThisMonth>0?'red':''}">${g.unpaidThisMonth}</div></div>
-    <div class="stat"><div class="label">Bu Ay Tahsilat</div><div class="value">${fmtMoney(g.totalMonth)}</div></div>
-    <div class="stat"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.totalAll)}</div><div class="substat">${g.monthsEarnedCount} ayda kazanıldı</div></div>
-    <div class="stat calendar-toggle-card" onclick="toggleCalendar()">
-      <div class="label">${calendarOpen ? 'Kapat' : 'Görüntüle'}</div>
-      <div class="value" style="font-size:16px; display:flex; align-items:center; gap:6px;">📅 Yıllık Takvim</div>
+    <div class="stat"><div class="label">Toplam Öğrenci</div><div class="value">${students.length}</div></div>
+    <div class="stat"><div class="label">Bu Ay Tahsilat</div><div class="value">${fmtMoney(g.grandMonthTotal)}</div><div class="substat" style="color:var(--green); font-weight:800;">Öğrenciler: ${fmtMoney(g.totalMonth)}</div><div class="substat" style="color:var(--amber); font-weight:800;">Diğer Gelirler: ${fmtMoney(g.otherMonthTotal)}</div></div>
+    <div class="stat"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.grandTotal)}</div><div class="substat" style="color:var(--green); font-weight:800;">Öğrenciler: ${fmtMoney(g.totalAll)}</div><div class="substat" style="color:var(--amber); font-weight:800;">Diğer Gelirler: ${fmtMoney(g.otherTotal)}</div></div>
+    <div class="stat toggle-card" onclick="toggleExpenses()">
+      <div class="label">${expensesOpen ? 'Kapat' : 'Görüntüle'}</div>
+      <div class="value" style="font-size:16px; display:flex; align-items:center; gap:6px;">💸 Giderler</div>
+      <div class="substat" style="color:var(--red);">Bu ay: ${fmtMoney(currentMonthExpenseTotal())}</div>
     </div>
   </div>
-  ${calendarOpen ? renderCalendarPanel() : ''}
+  ${expensesOpen ? renderExpensesPanel() : ''}
   ${g.pending.length ? `
   <section class="panel" style="border-color:${g.overdueInstallments.length?'rgba(225,80,61,0.4)':(g.upcomingInstallments.length?'rgba(232,163,61,0.4)':'var(--line)')};">
     <h2 style="margin-bottom:10px;">⏰ Taksit Takibi <span class="count">(${g.pending.length} bekleyen · ${fmtMoney(g.pendingInstallmentTotal)})</span></h2>
@@ -319,10 +350,17 @@ function render(){
   </section>` : ''}
   <section class="panel">
     <div class="panel-head" onclick="toggleAllHistory()">
-      <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length} kayıt)</span></h2>
+      <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length + otherIncomes.length} kayıt)</span></h2>
       <span class="hist-toggle">${allHistoryOpen? 'Gizle' : 'Göster'}</span>
     </div>
     ${allHistoryOpen ? renderMonthlyBreakdown() : ''}
+  </section>
+  <section class="panel">
+    <div class="panel-head" onclick="toggleOtherPayments()">
+      <h2>Diğer Gelirler</h2>
+      <span class="hist-toggle">${otherPaymentsOpen? 'Gizle' : 'Göster'}</span>
+    </div>
+    ${otherPaymentsOpen ? renderOtherPaymentsPanel() : ''}
   </section>
   <div class="toolbar">
     <input type="text" placeholder="Öğrenci ara…" value="${searchQ}" oninput="onSearch(this.value)">
@@ -404,43 +442,89 @@ function render(){
 function onSearch(v){ searchQ=v; render(); const el=document.querySelector('.toolbar input'); if(el){ el.focus(); el.setSelectionRange(v.length,v.length);} }
 function toggleHist(sid){ expanded[sid] = !expanded[sid]; render(); }
 function toggleAllHistory(){ allHistoryOpen = !allHistoryOpen; render(); }
-function toggleCalendar(){ calendarOpen = !calendarOpen; render(); }
-function changeCalendarYear(delta){ calendarYear += delta; render(); }
+function toggleExpenses(){ expensesOpen = !expensesOpen; render(); }
+function setExpenseTab(tab){ expenseTab = tab; render(); }
 const MONTH_SHORT = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
-function monthTotal(year, monthIdx){
-  return payments.filter(p=>{
-    const [y,m] = p.date.split('-').map(Number);
-    return y===year && (m-1)===monthIdx;
-  }).reduce((s,p)=>s+Number(p.amount||0),0);
+function currentMonthKey(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+function currentMonthExpenseTotal(){ const month=currentMonthKey(); return EXPENSE_CATEGORIES.reduce((s,c)=>s+(Number(getExpense(month,c.key))||0),0); }
+function getExpense(month, cat){ const e = expenses.find(x=>x.month===month && x.category===cat); return e ? e.amount : ''; }
+function saveMonthlyExpenses(){
+  const month = currentMonthKey();
+  EXPENSE_CATEGORIES.forEach(c=>{
+    const el = document.getElementById('exp_'+c.key);
+    const val = Number(el.value)||0;
+    let e = expenses.find(x=>x.month===month && x.category===c.key);
+    if(e){ e.amount = val; }
+    else{ expenses.push({id:uid(), month, category:c.key, amount:val, createdAt:new Date().toISOString()}); }
+  });
+  saveList('coach_expenses_v1', expenses);
+  expensesOpen = false;
+  expenseCalendarOpen = false;
+  render();
 }
-function renderCalendarPanel(){
+function categoryTotal(cat){ return expenses.filter(e=>e.category===cat).reduce((s,e)=>s+Number(e.amount||0),0); }
+function monthExpenseTotal(monthKey){
+  return expenses.filter(e=>e.month===monthKey).reduce((s,e)=>s+Number(e.amount||0),0);
+}
+function toggleExpenseCalendar(){ expenseCalendarOpen = !expenseCalendarOpen; render(); }
+function changeExpenseCalendarYear(delta){ expenseCalendarYear += delta; render(); }
+function renderExpenseCalendarGrid(){
   const now = new Date();
-  const isCurrentYear = calendarYear === now.getFullYear();
+  const isCurrentYear = expenseCalendarYear === now.getFullYear();
   let cells = '';
   for(let i=0;i<12;i++){
-    const total = monthTotal(calendarYear, i);
-    let prevTotal;
-    if(i===0){ prevTotal = monthTotal(calendarYear-1, 11); }
-    else{ prevTotal = monthTotal(calendarYear, i-1); }
-    let arrow = '';
-    if(prevTotal>0 && total>prevTotal){ arrow = `<span style="color:var(--green); font-weight:900;">▲</span>`; }
-    else if(prevTotal>0 && total<prevTotal){ arrow = `<span style="color:var(--red); font-weight:900;">▼</span>`; }
+    const mk = `${expenseCalendarYear}-${String(i+1).padStart(2,'0')}`;
+    const total = monthExpenseTotal(mk);
     const isThisMonthCell = isCurrentYear && i===now.getMonth();
-    cells += `<div class="cal-cell ${isThisMonthCell?'cal-cell-active':''}">
-      <div class="cal-month">${MONTH_SHORT[i]}</div>
-      <div class="cal-amount">${fmtMoney(total)} ${arrow}</div>
+    cells += `<div class="exp-cal-cell ${isThisMonthCell?'exp-cal-cell-active':''}">
+      <div class="exp-cal-month">${MONTH_SHORT[i]}</div>
+      <div class="exp-cal-amount">${fmtMoney(total)}</div>
     </div>`;
   }
+  return `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+    <button class="editbtn" onclick="changeExpenseCalendarYear(-1)">‹</button>
+    <h3 style="margin:0; font-size:15px;">${expenseCalendarYear}</h3>
+    <button class="editbtn" onclick="changeExpenseCalendarYear(1)">›</button>
+  </div>
+  <div class="exp-cal-grid">${cells}</div>`;
+}
+function renderExpensesPanel(){
+  const month = currentMonthKey();
+  const [y,m] = month.split('-').map(Number);
+  const monthLabel = `${MONTH_SHORT[m-1]} ${y}`;
+  let content = '';
+  if(expenseTab==='aylik'){
+    const monthTotalVal = currentMonthExpenseTotal();
+    content = `<p style="font-size:12px;color:var(--muted);margin:0 0 12px;">${monthLabel} için bu ay yapacağın giderleri gir.</p>
+    ${EXPENSE_CATEGORIES.map(c=>`<div class="expense-row"><label>${c.label}</label><input type="number" min="0" id="exp_${c.key}" value="${getExpense(month,c.key)}" placeholder="0"></div>`).join('')}
+    <div class="expense-row" style="border-top:1px solid var(--line); margin-top:4px; padding-top:12px;"><label>Aylık Toplam</label><span style="font-weight:900;">${fmtMoney(monthTotalVal)}</span></div>
+    <button class="primary" style="width:100%; margin-top:14px;" onclick="saveMonthlyExpenses()">Kaydet</button>`;
+  } else {
+    const grand = EXPENSE_CATEGORIES.reduce((s,c)=>s+categoryTotal(c.key),0);
+    content = `<p style="font-size:12px;color:var(--muted);margin:0 0 4px;">Tüm zamanlar toplam gider.</p>
+    ${EXPENSE_CATEGORIES.map(c=>`<div class="expense-row"><label>${c.label}</label><span style="font-weight:900;">${fmtMoney(categoryTotal(c.key))}</span></div>`).join('')}
+    <div class="expense-row" style="border-top:1px solid var(--line); margin-top:4px; padding-top:12px;"><label>Genel Toplam</label><span style="font-weight:900; color:var(--red);">${fmtMoney(grand)}</span></div>`;
+  }
   return `<section class="panel">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-      <button class="editbtn" onclick="changeCalendarYear(-1)">‹</button>
-      <h2 style="margin:0;">${calendarYear}</h2>
-      <button class="editbtn" onclick="changeCalendarYear(1)">›</button>
+    <h2 style="margin-bottom:12px;">Giderler</h2>
+    <div class="expense-tabs" style="align-items:center;">
+      <button class="${expenseTab==='aylik'?'primary':'secondary'}" onclick="setExpenseTab('aylik')">Aylık</button>
+      <button class="${expenseTab==='toplam'?'primary':'secondary'}" onclick="setExpenseTab('toplam')">Toplam</button>
+      <div style="margin-left:auto; margin-right:4px; width:130px; display:flex; justify-content:center;">
+        <button onclick="toggleExpenseCalendar()" title="Yıllık Görünüm" aria-label="Yıllık Görünüm" style="background:none; border:none; padding:0; font-size:24px; line-height:1; cursor:pointer;">📅</button>
+      </div>
     </div>
-    <div class="cal-grid">${cells}</div>
+    ${expenseCalendarOpen ? renderExpenseCalendarGrid() : ''}
+    ${content}
   </section>`;
 }
 function toggleMonth(key){ monthOpen[key] = !monthOpen[key]; render(); }
+const OTHER_PAYMENT_COLORS = ['#E8A33D','#E32227','#131417','#1F3A5F','#4A4A4F','#8B5A2B'];
+function colorForSource(name){
+  let h = 0;
+  for(let i=0;i<name.length;i++){ h = (h*31 + name.charCodeAt(i)) >>> 0; }
+  return OTHER_PAYMENT_COLORS[h % OTHER_PAYMENT_COLORS.length];
+}
 function renderMonthlyBreakdown(){
   const months = monthlyBreakdown();
   if(months.length===0){ return `<div class="empty">Henüz kayıtlı ödeme yok.</div>`; }
@@ -454,8 +538,13 @@ function renderMonthlyBreakdown(){
     if(monthOpen[mo.key]){
       out += `<div class="histbox" style="margin-left:0;">`;
       mo.items.forEach(p=>{
+        if(p.kind==='other'){
+          const srcName = p.source || 'Diğer';
+          out += `<div class="hrow" style="align-items:flex-start;"><span style="color:${colorForSource(srcName)}; font-weight:800;">${srcName}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
+          return;
+        }
         const pendingForStudent = studentInstallments(p.studentId).filter(i=>!i.paid);
-        out += `<div class="hrow" style="align-items:flex-start;"><span>${memberNameOf(p.studentId)}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
+        out += `<div class="hrow" style="align-items:flex-start;"><span style="color:var(--green); font-weight:800;">${memberNameOf(p.studentId)}</span><span>${fmtDate(p.date)}</span><span>${fmtMoney(p.amount)}</span></div>`;
         if(pendingForStudent.length){
           out += `<div style="padding:2px 0 6px 4px; font-size:11px; color:var(--paper-muted);">
             🗓️ ${pendingForStudent.length} bekleyen taksit: ${pendingForStudent.map(i=> fmtMoney(i.amount)+' ('+fmtDate(i.dueDate)+')').join(', ')}
@@ -468,6 +557,44 @@ function renderMonthlyBreakdown(){
   return out;
 }
 function memberNameOf(sid){ const s = students.find(x=>x.id===sid); return s ? s.name : '(silinmiş öğrenci)'; }
+function toggleOtherPayments(){ otherPaymentsOpen = !otherPaymentsOpen; render(); }
+function addOtherPayment(){
+  const amountEl = document.getElementById('op_amount');
+  const sourceEl = document.getElementById('op_source');
+  const amount = Number(amountEl.value);
+  const source = sourceEl.value.trim();
+  if(!amount || amount<=0){ showAlert('Lütfen geçerli bir ödeme tutarı girin.'); return; }
+  if(!source){ showAlert('Lütfen ödemenin alındığı yerin ismini girin.'); return; }
+  otherIncomes.push({id:uid(), amount, source, date:todayStr(), createdAt:new Date().toISOString()});
+  saveList('coach_other_income_v1', otherIncomes);
+  render();
+}
+function deleteOtherPayment(id){
+  askConfirm('Bu ödeme kaydı silinecek.', ()=>{
+    otherIncomes = otherIncomes.filter(o=>o.id!==id);
+    saveList('coach_other_income_v1', otherIncomes);
+    render();
+  });
+}
+function toggleOtherHist(){ otherHistOpen = !otherHistOpen; render(); }
+function renderOtherPaymentsPanel(){
+  const sorted = otherIncomes.slice().sort((a,b)=> b.date.localeCompare(a.date));
+  let rows = sorted.map(o=>`<div class="row-item"><span class="name">${o.source || 'Diğer'} <span class="sub" style="font-weight:600;">· ${fmtDate(o.date)}</span></span><span style="display:flex; align-items:center; gap:10px;"><strong>${fmtMoney(o.amount)}</strong><button class="del" onclick="deleteOtherPayment('${o.id}')">Sil</button></span></div>`).join('');
+  if(!sorted.length) rows = `<div class="empty">Henüz ödeme kaydı yok.</div>`;
+  return `<div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
+    <div>
+      <label style="display:block; font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;">Ödeme Tutarı (₺)</label>
+      <input type="number" min="0" id="op_amount" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;">
+    </div>
+    <div>
+      <label style="display:block; font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;">Ödemenin Alındığı Yer</label>
+      <input type="text" id="op_source" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--surface2); color:var(--text); font-size:16px;" onkeydown="if(event.key==='Enter'){addOtherPayment()}">
+    </div>
+    <button class="primary" style="width:100%;" onclick="addOtherPayment()">Ekle</button>
+  </div>
+  <span class="hist-toggle" onclick="toggleOtherHist()">${otherHistOpen ? 'Geçmişi Gizle' : 'Geçmiş ('+sorted.length+')'}</span>
+  ${otherHistOpen ? `<div class="histbox" style="margin-top:8px;">${rows}</div>` : ''}`;
+}
 let instStudentExpanded = {};
 function toggleInstStudent(sid){ instStudentExpanded[sid] = !instStudentExpanded[sid]; render(); }
 function renderInstallmentList(list){
