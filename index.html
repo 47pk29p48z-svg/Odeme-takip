@@ -330,7 +330,7 @@ function render(){
     <div class="stat"><div class="label">Bu Ay Ödemeyen</div><div class="value ${g.unpaidThisMonth>0?'red':''}">${g.unpaidThisMonth}</div></div>
     <div class="stat"><div class="label">Toplam Öğrenci</div><div class="value">${students.length}</div></div>
     <div class="stat"><div class="label">Bu Ay Tahsilat</div><div class="value">${fmtMoney(g.grandMonthTotal)}</div><div class="substat" style="color:var(--green); font-weight:800;">Öğrenciler: ${fmtMoney(g.totalMonth)}</div><div class="substat" style="color:var(--amber); font-weight:800;">Diğer Gelirler: ${fmtMoney(g.otherMonthTotal)}</div></div>
-    <div class="stat"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.grandTotal)}</div><div class="substat" style="color:var(--green); font-weight:800;">Öğrenciler: ${fmtMoney(g.totalAll)}</div><div class="substat" style="color:var(--amber); font-weight:800;">Diğer Gelirler: ${fmtMoney(g.otherTotal)}</div></div>
+    <div class="stat toggle-card" onclick="toggleAllHistory()"><div class="label">Toplam Tahsilat</div><div class="value">${fmtMoney(g.grandTotal)}</div><div class="substat" style="color:var(--green); font-weight:800;">Öğrenciler: ${fmtMoney(g.totalAll)}</div><div class="substat" style="color:var(--amber); font-weight:800;">Diğer Gelirler: ${fmtMoney(g.otherTotal)}</div><div class="substat" style="text-decoration:underline; margin-top:4px;">${allHistoryOpen ? 'Kayıtları Gizle' : 'Ödeme Kayıtları'}</div></div>
     <div class="stat toggle-card" onclick="toggleExpenses()">
       <div class="label">${expensesOpen ? 'Kapat' : 'Görüntüle'}</div>
       <div class="value" style="font-size:16px; display:flex; align-items:center; gap:6px;">💸 Giderler</div>
@@ -338,6 +338,11 @@ function render(){
     </div>
   </div>
   ${expensesOpen ? renderExpensesPanel() : ''}
+  ${allHistoryOpen ? `
+  <section class="panel">
+    <h2 style="margin-bottom:10px;">Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length + otherIncomes.length} kayıt)</span></h2>
+    ${renderMonthlyBreakdown()}
+  </section>` : ''}
   ${g.pending.length ? `
   <section class="panel" style="border-color:${g.overdueInstallments.length?'rgba(225,80,61,0.4)':(g.upcomingInstallments.length?'rgba(232,163,61,0.4)':'var(--line)')};">
     <h2 style="margin-bottom:10px;">⏰ Taksit Takibi <span class="count">(${g.pending.length} bekleyen · ${fmtMoney(g.pendingInstallmentTotal)})</span></h2>
@@ -348,13 +353,6 @@ function render(){
     <h2 style="margin-bottom:10px;">💳 Kredili Öğrenciler <span class="count">(${g.debtors.length} kişi · ${fmtMoney(g.debtorsTotal)})</span></h2>
     ${g.debtors.map(s=>`<div class="row-item"><span class="name">${s.name}${s.debtDate? ` <span class="sub" style="font-weight:600;">· ${fmtDate(s.debtDate)}</span>` : ''} <button class="paidsmall" onclick="clearDebt('${s.id}')">✓ Ödendi</button></span><span style="color:var(--red); font-weight:900;">-${fmtMoney(s.debt)}</span></div>`).join('')}
   </section>` : ''}
-  <section class="panel">
-    <div class="panel-head" onclick="toggleAllHistory()">
-      <h2>Tüm Ödemeler <span class="count">(geçmiş dahil · ${payments.length + otherIncomes.length} kayıt)</span></h2>
-      <span class="hist-toggle">${allHistoryOpen? 'Gizle' : 'Göster'}</span>
-    </div>
-    ${allHistoryOpen ? renderMonthlyBreakdown() : ''}
-  </section>
   <section class="panel">
     <div class="panel-head" onclick="toggleOtherPayments()">
       <h2>Diğer Gelirler</h2>
